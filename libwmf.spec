@@ -1,16 +1,16 @@
 Summary:	libwmf - library to convert wmf files
 Summary:	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.1.21
-Release:	2
+Version:	0.1.21b
+Release:	1
 Epoch:		2
 License:	GPL
+Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Group:		Applications/Text
 Group(de):	Applikationen/Text
 Group(fr):	Utilitaires/Texte
 Group(pl):	Aplikacje/Tekst
-Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
-Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared.patch
 URL:		http://wvware.sourceforge.net/
@@ -18,9 +18,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	libtool
 BuildRequires:	libpng-devel
 BuildRequires:	freetype-devel
-BuildRequires:	zlib-devel
 BuildRequires:	XFree86-devel
-#BuildRequires:	xpm-devel		# if XFree86-devel < 4.0.1-7
 
 %description
 libwmf is a library for unix like machines that can convert wmf files
@@ -56,9 +54,8 @@ This package contains libwmf static libraries.
 %patch1 -p1
 
 %build
-CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I/usr/include/freetype"
-%configure
-
+%configure \
+	--with-ttf
 %{__make}
 
 %install
