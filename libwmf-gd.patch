@@ -1,0 +1,11 @@
+--- libwmf-0.2.1/src/ipa/gd.h.orig	Mon May 14 09:27:18 2001
++++ libwmf-0.2.1/src/ipa/gd.h	Thu Aug 30 23:23:09 2001
+@@ -23,7 +23,7 @@
+ /* I suppose I shouldn't call this file gd.h, but as long <gd.h> is included
+  * before any other "gd*.h" there's no problem...
+  */
+-#include <gd.h>
++#include "../extra/gd/gd.h"
+ 
+ extern int gdImageBoundsSafe (gdImage*,int,int);
+ 
