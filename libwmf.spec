@@ -85,6 +85,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/bdftogd
 %attr(755,root,root) %{_bindir}/wmftofig
 %attr(755,root,root) %{_bindir}/wmftopng
+%attr(755,root,root) %{_bindir}/wmftoeps
 %attr(755,root,root) %{_bindir}/xwmf
 %attr(755,root,root) %{_libdir}/*.so.*.*
 
