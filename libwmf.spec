@@ -1,7 +1,7 @@
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.2.2
+Version:	0.2.6
 Release:	1
 Epoch:		2
 License:	GPL
@@ -18,7 +18,7 @@ BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	libjpeg-devel
-BuildRequires:	libplot-devel
+#BuildRequires:	libplot-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	plotutils
@@ -74,12 +74,8 @@ rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
-	CPPFLAGS="`pkg-config libpng12 --cflags`"
-fi
-%configure CPPFLAGS="$CPPFLAGS" \
-	--with-plot \
-	--enable-magick
+%configure
+
 %{__make}
 
 %install
@@ -88,7 +84,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
-gzip -9nf CREDITS ChangeLog README TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -101,13 +96,13 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc *.gz
+%doc CREDITS ChangeLog README TODO
 %attr(755,root,root) %{_bindir}/libwmf-fontmap
 %attr(755,root,root) %{_bindir}/wmf2eps
 %attr(755,root,root) %{_bindir}/wmf2fig
 %attr(755,root,root) %{_bindir}/wmf2gd
-%attr(755,root,root) %{_bindir}/wmf2magick
-%attr(755,root,root) %{_bindir}/wmf2plot
+#%attr(755,root,root) %{_bindir}/wmf2magick
+#%attr(755,root,root) %{_bindir}/wmf2plot
 %attr(755,root,root) %{_bindir}/wmf2svg
 %attr(755,root,root) %{_bindir}/wmf2x
 %attr(755,root,root) %{_libdir}/*.so.*.*
