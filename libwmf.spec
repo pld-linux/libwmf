@@ -50,6 +50,8 @@ Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nag³ówkowe
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+# libwmflite(.la) has no additional deps
+# libwmf(.la) needs freetype-devel, XFree86-devel, expat-devel, libjpeg-devel, libpng-devel
 
 %description devel
 This package contains libwmf header files.
