@@ -56,7 +56,7 @@ This package contains libwmf static libraries.
 %patch1 -p1
 
 %build
-CFLAGS="%{?debug:-O -g}%{!?debug:$RPM_OPT_FLAGS} -I/usr/include/freetype"
+CFLAGS="%{?debug:-O0 -g}%{!?debug:$RPM_OPT_FLAGS} -I/usr/include/freetype"
 %configure
 
 %{__make}
