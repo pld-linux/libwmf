@@ -1,7 +1,7 @@
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.2.0
+Version:	0.2.1
 Release:	1
 Epoch:		2
 License:	GPL
@@ -12,6 +12,8 @@ Group(fr):	Utilitaires/Texte
 Group(pl):	Aplikacje/Tekst
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-fontmap-pld.patch
+Patch1:		%{name}-gd.patch
+Patch2:		%{name}-includes.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	libpng-devel
 BuildRequires:	libjpeg-devel
@@ -19,6 +21,8 @@ BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	XFree86-devel
 BuildRequires:	expat-devel
 BuildRequires:	libplot-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 Prereq:		/sbin/ldconfig
 Prereq:		sed
 Prereq:		ghostscript-fonts-std
@@ -67,9 +71,15 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 
 %prep
 %setup -q
-%patch -p1
+%patch0 -p1
+%patch1 -p1
+%patch2 -p1
 
 %build
+libtoolize --copy --force
+aclocal
+automake -a -c
+autoconf
 %configure \
 	--with-plot
 %{__make}
@@ -79,7 +89,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_prefix}/doc ./html-doc
+mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
 gzip -9nf CREDITS ChangeLog README TODO
 
 %clean

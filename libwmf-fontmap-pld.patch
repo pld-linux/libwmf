@@ -1,14 +1,14 @@
---- libwmf-0.2.0/fonts/libwmf-fontmap.in.orig	Sat May 19 14:12:06 2001
-+++ libwmf-0.2.0/fonts/libwmf-fontmap.in	Mon Jun 11 13:24:44 2001
+--- libwmf-0.2.1/fonts/libwmf-fontmap.in.orig	Sat May 19 14:12:06 2001
++++ libwmf-0.2.1/fonts/libwmf-fontmap.in	Mon Jun 11 13:24:44 2001
 @@ -33,9 +33,9 @@
  fi
  
  if test "x$font_dir" = "x"; then
--	font_dir="@prefix@/share/@PACKAGE@/fonts"
-+	font_dir="@prefix@/share/@PACKAGE@/fonts /usr/share/fonts/Type1 /usr/share/fonts/TTF"
+-	font_dir="@WMF_FONTDIR@"
++	font_dir="@WMF_FONTDIR@ /usr/share/fonts/Type1 /usr/share/fonts/TTF"
  else
--	font_dir="$font_dir @prefix@/share/@PACKAGE@/fonts"
-+	font_dir="$font_dir @prefix@/share/@PACKAGE@/fonts /usr/share/fonts/Type1 /usr/share/fonts/TTF"
+-	font_dir="$font_dir @WMF_FONTDIR@"
++	font_dir="$font_dir @WMF_FONTDIR@ /usr/share/fonts/Type1 /usr/share/fonts/TTF"
  fi
  
  if test $echo_help = yes; then
