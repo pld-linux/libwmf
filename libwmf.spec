@@ -1,5 +1,5 @@
 Summary:	libwmf - library to convert wmf files
-Summary:	libwmf - biblioteka z funkcjami do konwersji plików wmf
+Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.1.21b
 Release:	1
@@ -22,11 +22,18 @@ BuildRequires:	XFree86-devel
 
 %description
 libwmf is a library for unix like machines that can convert wmf files
-into other formats, currently it supports a gd binding to convert to
-png, and an X one to draw direct to an X window or pixmap.
+into other formats, currently it supports fig, eps, a gd binding to
+convert to png, and an X one to draw direct to an X window or pixmap.
+
+%description -l pl
+libwmf jest bibliotek± dla systemów uniksowych, która konwertuje pliki
+wmf na inne formaty. Aktualnie obs³uguje formaty fig i eps, format png
+poprzez bibliotekê gd oraz - poprzez biblioteki X Window - rysowanie
+w okienku oraz format xpm.
 
 %package devel
 Summary:	libwmf - header files
+Summary(pl):	libwmf - pliki nag³ówkowe
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
@@ -36,8 +43,12 @@ Requires:	%{name} = %{version}
 %description devel
 This package contains libwmf header files.
 
+%description devel -l pl
+Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
+
 %package static
 Summary:	libwmf - static libraries
+Summary(pl):	libwmf - biblioteki statyczne
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
 Group(fr):	Development/Librairies
@@ -47,6 +58,8 @@ Requires:	%{name}-devel = %{version}
 %description static
 This package contains libwmf static libraries.
 
+%description static -l pl
+Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 
 %prep
 %setup -q -n %{name}
