@@ -26,7 +26,7 @@ gif, and an X one to draw direct to an X window or pixmap.
 %build
 LDFLAGS="-s"; export LDFLAGS
 %configure
-make
+%{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
