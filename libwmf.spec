@@ -1,21 +1,23 @@
-Summary:	libwmf, library to convert wmf files.
+Summary:	libwmf, library to convert wmf files
 Name:		libwmf
 Version:	0.1.17
 Release:	1
 Serial:		2
-Copyright:	GPL
+License:	GPL
 Group:		Utilities/Text
+Group(fr):	Utilitaires/Texte
+Group(pl):	Narzêdzia/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
-Source:		http://www.csn.ul.ie/~caolan/publink/libwmf/%{name}-%{version}.tar.gz
-Patch:		libwmf-DESTDIR.patch
+Source0:	http://www.csn.ul.ie/~caolan/publink/libwmf/%{name}-%{version}.tar.gz
+Patch0:		libwmf-DESTDIR.patch
 URL:		http://www.csn.ul.ie/~caolan/docs/libwmf.html
 Requires:	freetype
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-libwmf is a library for unix like machines that can convert wmf files into
-other formats, currently it supports a gd binding to convert to gif, and an
-X one to draw direct to an X window or pixmap.
+libwmf is a library for unix like machines that can convert wmf files
+into other formats, currently it supports a gd binding to convert to
+gif, and an X one to draw direct to an X window or pixmap.
 
 %prep
 %setup -q -n %{name}
