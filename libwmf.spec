@@ -11,6 +11,7 @@ Epoch:		2
 License:	GPL
 Group:		Applications/Text
 Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+# Source0-md5:	269fb225cd44f40cc877fb6c63706112
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
