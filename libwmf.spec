@@ -7,6 +7,7 @@ Copyright:	GPL
 Group:		Utilities/Text
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source:		http://www.csn.ul.ie/~caolan/publink/libwmf/%{name}-%{version}.tar.gz
+Patch:		libwmf-DESTDIR.patch
 URL:		http://www.csn.ul.ie/~caolan/docs/libwmf.html
 Requires:	freetype
 BuildRoot:	/tmp/%{name}-%{version}-root
@@ -18,24 +19,27 @@ X one to draw direct to an X window or pixmap.
 
 %prep
 %setup -q -n %{name}
-LDFLAGS="-s"; export LDFLAGS
-%configure
+%patch -p1
 
 %build
+LDFLAGS="-s"; export LDFLAGS
+%configure
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_prefix}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}}
 
-make DESTDIR=$RPM_BUILD_ROOT install
+make install DESTDIR=$RPM_BUILD_ROOT
+
+gzip -9nf winepatches/* CHANGELOG CREDITS README TODO libwmf.lsm
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc examples notes winepatches CHANGELOG CREDITS README TODO libwmf.lsm
-%{_bindir}/*
+%doc doc examples notes winepatches {CHANGELOG,CREDITS,README,TODO,libwmf.lsm}.gz
+%attr(755,root,root) %{_bindir}/*
 %{_libdir}/*
 %{_includedir}/*
