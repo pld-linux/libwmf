@@ -1,7 +1,7 @@
-diff -Nur libwmf.pre/Makefile.in libwmf/Makefile.in
---- libwmf.pre/Makefile.in	Thu Dec 28 17:41:49 2000
-+++ libwmf/Makefile.in	Thu Dec 28 19:06:58 2000
-@@ -37,21 +37,21 @@
+diff -urN libwmf.orig/Makefile.in libwmf/Makefile.in
+--- libwmf.orig/Makefile.in	Thu Jan 18 17:55:43 2001
++++ libwmf/Makefile.in	Thu Jan 18 17:58:18 2001
+@@ -39,24 +39,24 @@
  .SUFFIXES: .C .o
  
  WMFLIBOBJECTS =	\
@@ -22,6 +22,10 @@ diff -Nur libwmf.pre/Makefile.in libwmf/Makefile.in
 -	xfwmfapi.o 
 +	xfwmfapi.lo 
  
+ EPSLIBOBJECTS =	\
+-	xfwmfapi.o 
++	xfwmfapi.lo 
+ 
  XLIBOBJECTS =	\
 -	Xwmfapi.o \
 -	Xtext.o \
@@ -30,10 +34,10 @@ diff -Nur libwmf.pre/Makefile.in libwmf/Makefile.in
 +	Xtext.lo \
 +	rotated.lo
  
- TARGETS = wmftopng wmftofig xwmf
+ TARGETS = wmftopng wmftofig wmftoeps xwmf
  
-@@ -67,20 +67,20 @@
- 	$(CC) $(LDFLAGS) -o wmftofig wmftofig.o -L. -lxfwmf -lwmf $(XFLIBS)
+@@ -75,24 +75,24 @@
+ 	$(CC) $(LDFLAGS) -o wmftoeps wmftoeps.o -L. -lepswmf -lwmf $(EPSLIBS)
  
  libwmf.a:	$(WMFLIBOBJECTS)
 -	 $(AR) rc libwmf.a $(WMFLIBOBJECTS) 
@@ -53,6 +57,12 @@ diff -Nur libwmf.pre/Makefile.in libwmf/Makefile.in
 +	libtool $(CC) $(LDFLAGS) -o libxfwmf.la $(XFLIBOBJECTS) -rpath @libdir@
 +	mv -f .libs/libxfwmf.{a,so*} .
  
+ libepswmf.a:	$(EPSLIBOBJECTS)
+-	 $(AR) rc libepswmf.a $(EPSLIBOBJECTS) 
+-	 $(RANLIB) libepswmf.a
++	libtool $(CC) $(LDFLAGS) -o libepswmf.la $(EPSLIBOBJECTS) -rpath @libdir@
++	mv -f .libs/libepswmf.{a,so*} .
+ 
  libXwmf.a:	$(XLIBOBJECTS)
 -	 $(AR) rc libXwmf.a $(XLIBOBJECTS) 
 -	 $(RANLIB) libXwmf.a
@@ -61,55 +71,56 @@ diff -Nur libwmf.pre/Makefile.in libwmf/Makefile.in
  
  LIBDIB:
  	@echo making libdib in libdib
-@@ -96,9 +96,11 @@
- 
+@@ -109,8 +109,11 @@
  %.o: %.c 
  	$(CC) $(CFLAGS) -c $*.c 
-+%.lo: %.c 
-+	libtool $(CC) $(CFLAGS) -c $*.c 
  
++%.lo: %.c
++	libtool $(CC) $(CFLAGS) -c $*.c
++
  clean: cleansub
--	rm -rf *.o wmftopng wmftofig xwmf a.out core *.a .pure
+-	rm -rf *.o wmftopng wmftofig wmftoeps xwmf a.out core *.a .pure
 +	rm -rf *.o wmftopng wmftofig xwmf a.out core *.a *.la *.so* *.lo .pure
  
  cleansub:
  	@echo cleaning libdib in libdib
-@@ -119,7 +121,7 @@
+@@ -131,7 +134,7 @@
  distclean: realclean
  
  realclean: realcleansub
--	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o wmftopng wmftofig xwmf a.out *.a core .pure
+-	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o wmftopng wmftofig wmftoeps xwmf a.out *.a core .pure
 +	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o wmftopng wmftofig xwmf a.out *.a *.la *.lo *.so* core .pure
  
  realcleansub:
  	@echo cleaning libdib in libdib
-@@ -141,6 +143,15 @@
- 	$(INSTALL_DATA) $(srcdir)/libgdwmf.a $(DESTDIR)$(libdir)/libgdwmf.a
+@@ -155,6 +158,16 @@
  	$(INSTALL_DATA) $(srcdir)/libXwmf.a $(DESTDIR)$(libdir)/libXwmf.a
  	$(INSTALL_DATA) $(srcdir)/libxfwmf.a $(DESTDIR)$(libdir)/libxfwmf.a
+ 	$(INSTALL_DATA) $(srcdir)/libepswmf.a $(DESTDIR)$(libdir)/libepswmf.a
 +	$(INSTALL_DATA) $(srcdir)/libwmf.la $(DESTDIR)$(libdir)/libwmf.la
 +	$(INSTALL_DATA) $(srcdir)/libgdwmf.la $(DESTDIR)$(libdir)/libgdwmf.la
 +	$(INSTALL_DATA) $(srcdir)/libXwmf.la $(DESTDIR)$(libdir)/libXwmf.la
 +	$(INSTALL_DATA) $(srcdir)/libxfwmf.la $(DESTDIR)$(libdir)/libxfwmf.la
++	$(INSTALL_DATA) $(srcdir)/libepswmf.la $(DESTDIR)$(libdir)/libepswmf.la
 +	$(INSTALL_DATA) $(srcdir)/libwmf.so.* $(DESTDIR)$(libdir)
 +	$(INSTALL_DATA) $(srcdir)/libgdwmf.so.* $(DESTDIR)$(libdir)
 +	$(INSTALL_DATA) $(srcdir)/libXwmf.so.* $(DESTDIR)$(libdir)
 +	$(INSTALL_DATA) $(srcdir)/libxfwmf.so.* $(DESTDIR)$(libdir)
-+	cp -df $(srcdir)/{libwmf,libgdwmf,libXwmf,libxfwmf}.so $(DESTDIR)$(libdir)
++	$(INSTALL_DATA) $(srcdir)/libepswmf.so.* $(DESTDIR)$(libdir)
  	$(INSTALL_DATA) wmfapi.h $(DESTDIR)$(INCLUDEDIR)/wmfapi.h
  	$(INSTALL_DATA) gdwmfapi.h $(DESTDIR)$(INCLUDEDIR)/gdwmfapi.h
  	$(INSTALL_DATA) Xwmfapi.h $(DESTDIR)$(INCLUDEDIR)/Xwmfapi.h
-diff -Nur libwmf.pre/libdib/Makefile.in libwmf/libdib/Makefile.in
---- libwmf.pre/libdib/Makefile.in	Thu Dec 28 17:41:49 2000
-+++ libwmf/libdib/Makefile.in	Thu Dec 28 19:04:43 2000
-@@ -31,24 +31,26 @@
+diff -urN libwmf.orig/libdib/Makefile.in libwmf/libdib/Makefile.in
+--- libwmf.orig/libdib/Makefile.in	Thu Jan 18 17:55:43 2001
++++ libwmf/libdib/Makefile.in	Thu Jan 18 17:56:15 2001
+@@ -31,15 +31,15 @@
  .SUFFIXES: .C .o
  
  MYOBJECTS = \
--    bytelevel.o \
+-    ../bytelevel.o \
 -    bintree.o \
 -    dibtoxpm.o
-+    bytelevel.lo \
++    ../bytelevel.lo \
 +    bintree.lo \
 +    dibtoxpm.lo
  
@@ -123,19 +134,20 @@ diff -Nur libwmf.pre/libdib/Makefile.in libwmf/libdib/Makefile.in
  
  test_dibtoxpm:  libdib.a test_dibtoxpm.o
  	$(CC) $(LDFLAGS) -o test_dibtoxpm test_dibtoxpm.o -ldib
- 
+@@ -47,8 +47,11 @@
  %.o: %.c
  	$(CC) $(CFLAGS) -c $*.c
+ 
 +%.lo: %.c
 +	libtool $(CC) $(CFLAGS) -c $*.c
- 
++
  clean:
 -	rm -rf *.o *.a test_dibtoxpm a.out core
 +	rm -rf *.o *.a *.lo *.la *.so test_dibtoxpm a.out core
  
  realclean: 
  	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o *.a test_dibtoxpm core
-@@ -60,6 +62,8 @@
+@@ -60,6 +63,8 @@
  install: all installdirs
  	$(INSTALL_DATA) dibtoxpm.h $(DESTDIR)$(INCLUDEDIR)/dibtoxpm.h
  	$(INSTALL_DATA) libdib.a $(DESTDIR)@libdir@/libdib.a
@@ -145,13 +157,13 @@ diff -Nur libwmf.pre/libdib/Makefile.in libwmf/libdib/Makefile.in
 +	$(INSTALL_DATA) libdib.la $(DESTDIR)@libdir@/libdib.la
  
  #  DO  NOT  DELETE THIS LINE -- make depend depends on it.
-diff -Nur libwmf.pre/libxfig/Makefile.in libwmf/libxfig/Makefile.in
---- libwmf.pre/libxfig/Makefile.in	Thu Dec 28 17:41:49 2000
-+++ libwmf/libxfig/Makefile.in	Thu Dec 28 19:05:09 2000
-@@ -31,27 +31,32 @@
+diff -urN libwmf.orig/libxfig/Makefile.in libwmf/libxfig/Makefile.in
+--- libwmf.orig/libxfig/Makefile.in	Thu Jan 18 17:55:43 2001
++++ libwmf/libxfig/Makefile.in	Thu Jan 18 17:57:27 2001
+@@ -31,38 +31,47 @@
  .SUFFIXES: .C .o
  
- MYOBJECTS = \
+ XFOBJECTS = \
 -	color.o \
 -	objlist.o \
 -	fileops.o
@@ -159,19 +171,35 @@ diff -Nur libwmf.pre/libxfig/Makefile.in libwmf/libxfig/Makefile.in
 +	objlist.lo \
 +	fileops.lo
  
- all: libxfig.a 
+ EPSOBJECTS = \
+-	color.o \
+-	objlist.o \
+-	epsfileops.o
++	color.lo \
++	objlist.lo \
++	epsfileops.lo
  
- libxfig.a:  $(MYOBJECTS)
--	$(AR) rc libxfig.a $(MYOBJECTS)
+ 
+ all: libxfig.a libeps.a
+ 
+ libxfig.a:  $(XFOBJECTS)
+-	$(AR) rc libxfig.a $(XFOBJECTS)
 -	$(RANLIB) libxfig.a 
-+	libtool $(CC) $(LDFLAGS) -o libxfig.la $(MYOBJECTS) -rpath @libdir@
++	libtool $(CC) $(LDFLAGS) -o libxfig.la $(XFOBJECTS) -rpath @libdir@
 +	mv -f .libs/libxfig.{a,so*} .
+ 
+ libeps.a:  $(EPSOBJECTS)
+-	$(AR) rc libeps.a $(EPSOBJECTS)
+-	$(RANLIB) libeps.a 
++	libtool $(CC) $(LDFLAGS) -o libeps.la $(EPSOBJECTS) -rpath @libdir@
++	mv -f .libs/libeps.{a,so*} .
  
  %.o: %.c
  	$(CC) $(CFLAGS) -c $*.c
+ 
 +%.lo: %.c
 +	libtool $(CC) $(CFLAGS) -c $*.c
- 
++
  clean:
 -	rm -rf *.o *.a core
 +	rm -rf *.o *.a *.la *.lo *.so* core
@@ -186,12 +214,16 @@ diff -Nur libwmf.pre/libxfig/Makefile.in libwmf/libxfig/Makefile.in
 +	$(INSTALL_DATA) libxfig.la $(DESTDIR)@libdir@/libxfig.la
 +	$(INSTALL_DATA) libxfig.so.* $(DESTDIR)@libdir@
 +	cp -df libxfig.so $(DESTDIR)@libdir@
+ 	$(INSTALL_DATA) libeps.a $(DESTDIR)@libdir@/libeps.a
++	$(INSTALL_DATA) libeps.la $(DESTDIR)@libdir@/libeps.la
++	$(INSTALL_DATA) libeps.so.* $(DESTDIR)@libdir@
++	cp -df libeps.so $(DESTDIR)@libdir@
  
  installdirs:
  	$(MKINSTALLDIRS) $(DESTDIR)@libdir@ \
-diff -Nur libwmf.pre/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
---- libwmf.pre/xgd-1.7.3/Makefile.in	Thu Dec 28 17:41:49 2000
-+++ libwmf/xgd-1.7.3/Makefile.in	Thu Dec 28 19:05:52 2000
+diff -urN libwmf.orig/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
+--- libwmf.orig/xgd-1.7.3/Makefile.in	Thu Jan 18 17:55:43 2001
++++ libwmf/xgd-1.7.3/Makefile.in	Thu Jan 18 17:56:15 2001
 @@ -80,10 +80,18 @@
  BIN_PROGRAMS=pngtogd pngtogd2 gdtopng gd2topng gd2copypal gdparttopng webpng
  TEST_PROGRAMS=gdtest gddemo gd2time gdtestttf
@@ -204,14 +236,14 @@ diff -Nur libwmf.pre/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
  all: libxgd.a $(PROGRAMS)
  
  install: libxgd.a $(BIN_PROGRAMS)
- 	$(INSTALL) libxgd.a $(INSTALL_LIB)/libxgd.a
-+	$(INSTALL) libxgd.la $(INSTALL_LIB)/libxgd.la
-+	$(INSTALL) libxgd.so.* $(INSTALL_LIB)
-+	cp -df libxgd.so $(INSTALL_LIB)
- 	$(INSTALL) pngtogd $(INSTALL_BIN)/pngtogd
- 	$(INSTALL) pngtogd2 $(INSTALL_BIN)/pngtogd2
- 	$(INSTALL) gdtopng $(INSTALL_BIN)/gdtopng
-@@ -134,17 +142,16 @@
+ 	$(INSTALL) libxgd.a $(DESTDIR)$(INSTALL_LIB)/libxgd.a
++	$(INSTALL) libxgd.la $(DESTDIR)$(INSTALL_LIB)/libxgd.la
++	$(INSTALL) libxgd.so.* $(DESTDIR)$(INSTALL_LIB)
++	cp -df libxgd.so $(DESTDIR)$(INSTALL_LIB)
+ 	$(INSTALL) pngtogd $(DESTDIR)$(INSTALL_BIN)/pngtogd
+ 	$(INSTALL) pngtogd2 $(DESTDIR)$(INSTALL_BIN)/pngtogd2
+ 	$(INSTALL) gdtopng $(DESTDIR)$(INSTALL_BIN)/gdtopng
+@@ -134,19 +142,19 @@
  gdtestttf: gdtestttf.o libxgd.a
  	$(CC) gdtestttf.o -o gdtestttf	$(LIBDIRS) $(LIBS)
  
@@ -219,22 +251,25 @@ diff -Nur libwmf.pre/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
 -	gd_io_ss.o gd_png.o gdxpm.o gdfontt.o gdfonts.o gdfontmb.o gdfontl.o \
 -	gdfontg.o gdtables.o gdttf.o gdcache.o gdkanji.o \
 -	gd.h gdfontt.h gdfonts.h gdfontmb.h gdfontl.h gdfontg.h
++
 +XGDOBJECTS = \
 +	gd.lo gd_gd.lo gd_gd2.lo gd_io.lo gd_io_dp.lo gd_io_file.lo gd_ss.lo \
 +	gd_io_ss.lo gd_png.lo gdxpm.lo gdfontt.lo gdfonts.lo gdfontmb.lo gdfontl.lo \
 +	gdfontg.lo gdtables.lo gdttf.lo gdcache.lo gdkanji.lo
-+	
++
 +libxgd.a: $(XGDOBJECTS) gd.h gdfontt.h gdfonts.h gdfontmb.h gdfontl.h gdfontg.h
  	rm -f libxgd.a
 -	$(AR) rc libxgd.a gd.o gd_gd.o gd_gd2.o gd_io.o gd_io_dp.o \
 -		gd_io_file.o gd_ss.o gd_io_ss.o gd_png.o gdxpm.o \
 -		gdfontt.o gdfonts.o gdfontmb.o gdfontl.o gdfontg.o \
 -		gdtables.o gdttf.o gdcache.o gdkanji.o
--	-ranlib libxgd.a
+-	-@RANLIB@ libxgd.a
 +	libtool $(CC) -lm -lpng -lz -lttf $(LDFLAGS) -o libxgd.la $(XGDOBJECTS) -rpath @libdir@
 +	mv -f .libs/libxgd.{a,so*} .
  
  clean:
--	rm -f *.o *.a ${PROGRAMS}
+-	rm -f *.o *.a ${PROGRAMS} core 
 +	rm -f *.o *.a *.la *.lo *.so* ${PROGRAMS}
  
+ realclean:
+ 	rm -f *.o *.a ${PROGRAMS} core Makefile
