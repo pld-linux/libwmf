@@ -9,7 +9,6 @@ Version:	0.2.8
 Release:	1
 Epoch:		2
 License:	GPL
-Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Group:		Applications/Text
 Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-fontmap-pld.patch
