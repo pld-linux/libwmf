@@ -22,7 +22,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
-%{?with_gtk:BuildRequires:	gtk+2-devel >= 2.1.2}
+%{?with_gtk:BuildRequires:	gtk+2-devel >= 1:2.1.2}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool >= 1:1.4.2-9
