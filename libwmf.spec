@@ -24,7 +24,6 @@ gif, and an X one to draw direct to an X window or pixmap.
 %patch -p1
 
 %build
-LDFLAGS="-s"; export LDFLAGS
 %configure
 %{__make}
 
