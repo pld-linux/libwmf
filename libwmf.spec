@@ -82,7 +82,7 @@ mv -f $RPM_BUILD_ROOT%{_includedir}/{gd.h,gd_io.h,gdf*,gdc*} \
 
 # remove unwanted paths from libtool scripts
 for f in $RPM_BUILD_ROOT%{_libdir}/lib{X,eps,gd,xf,}wmf.la ; do
-	cat $f | awk '/^dependency_libs/ { gsub("-L\s*[^\s]*/\.libs ","") } //' >$f.tmp
+	cat $f | awk '/^dependency_libs/ { gsub("-L[ \t]*[^ \t]*/\.libs ","") } //' >$f.tmp
 	mv -f $f.tmp $f
 done
 
