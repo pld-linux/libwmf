@@ -32,6 +32,8 @@ Requires(post):	sed
 Requires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
+%define		specflags_ia32	-fomit-frame-pointer
+
 %description
 libwmf is a library for unix like machines that can convert wmf files
 into other formats, currently it supports fig, eps, a gd binding to
