@@ -90,7 +90,8 @@ rm -f missing
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure
+%configure \
+	--with-gsfontdir=%{_fontsdir}/Type1
 
 %{__make}
 
