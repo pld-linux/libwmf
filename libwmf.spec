@@ -69,7 +69,7 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 %patch2 -p1
 
 %build
-libtoolize --copy --force
+%{__libtoolize}
 aclocal
 %{__automake}
 %{__autoconf}
