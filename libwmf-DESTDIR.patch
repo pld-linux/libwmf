@@ -1,6 +1,6 @@
-diff -Nur libwmf.org/Makefile.in libwmf/Makefile.in
---- libwmf.org/Makefile.in	Thu Dec 16 16:31:01 1999
-+++ libwmf/Makefile.in	Thu Dec 28 10:07:48 2000
+diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
+--- libwmf.orig/Makefile.in	Thu Dec 16 16:31:01 1999
++++ libwmf/Makefile.in	Thu Dec 28 14:32:41 2000
 @@ -130,19 +130,19 @@
  	@(cd libxfig && $(MAKE) realclean) || exit 1
  
@@ -33,9 +33,9 @@ diff -Nur libwmf.org/Makefile.in libwmf/Makefile.in
 +	$(INSTALL_DATA) Xwmfapi.h $(DESTDIR)$(INCLUDEDIR)/Xwmfapi.h
  
  #  DO  NOT  DELETE THIS LINE -- make depend depends on it.
-diff -Nur libwmf.org/libdib/Makefile.in libwmf/libdib/Makefile.in
---- libwmf.org/libdib/Makefile.in	Tue Jul 13 15:14:28 1999
-+++ libwmf/libdib/Makefile.in	Thu Dec 28 10:09:28 2000
+diff -Nur libwmf.orig/libdib/Makefile.in libwmf/libdib/Makefile.in
+--- libwmf.orig/libdib/Makefile.in	Tue Jul 13 15:14:28 1999
++++ libwmf/libdib/Makefile.in	Thu Dec 28 14:35:01 2000
 @@ -54,12 +54,12 @@
  	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o *.a test_dibtoxpm core
  
@@ -53,9 +53,9 @@ diff -Nur libwmf.org/libdib/Makefile.in libwmf/libdib/Makefile.in
  
  
  #  DO  NOT  DELETE THIS LINE -- make depend depends on it.
-diff -Nur libwmf.org/libsvg/Makefile.in libwmf/libsvg/Makefile.in
---- libwmf.org/libsvg/Makefile.in	Thu Dec  9 14:07:57 1999
-+++ libwmf/libsvg/Makefile.in	Thu Dec 28 10:12:55 2000
+diff -Nur libwmf.orig/libsvg/Makefile.in libwmf/libsvg/Makefile.in
+--- libwmf.orig/libsvg/Makefile.in	Thu Dec  9 14:07:57 1999
++++ libwmf/libsvg/Makefile.in	Thu Dec 28 14:35:49 2000
 @@ -51,11 +51,11 @@
  	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o *.a core
  
@@ -71,9 +71,9 @@ diff -Nur libwmf.org/libsvg/Makefile.in libwmf/libsvg/Makefile.in
  
  
  #  DO  NOT  DELETE THIS LINE -- make depend depends on it.
-diff -Nur libwmf.org/libxfig/Makefile.in libwmf/libxfig/Makefile.in
---- libwmf.org/libxfig/Makefile.in	Tue Jul 13 15:16:20 1999
-+++ libwmf/libxfig/Makefile.in	Thu Dec 28 10:13:35 2000
+diff -Nur libwmf.orig/libxfig/Makefile.in libwmf/libxfig/Makefile.in
+--- libwmf.orig/libxfig/Makefile.in	Tue Jul 13 15:16:20 1999
++++ libwmf/libxfig/Makefile.in	Thu Dec 28 14:36:37 2000
 @@ -51,11 +51,11 @@
  	rm -rf config.cache config.status config.log Makefile config.h lex.yy.c *.o *.a core
  
@@ -89,47 +89,23 @@ diff -Nur libwmf.org/libxfig/Makefile.in libwmf/libxfig/Makefile.in
  
  
  #  DO  NOT  DELETE THIS LINE -- make depend depends on it.
-diff -Nur libwmf.org/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
---- libwmf.org/xgd-1.7.3/Makefile.in	Thu Dec 16 16:31:47 1999
-+++ libwmf/xgd-1.7.3/Makefile.in	Thu Dec 28 10:11:53 2000
-@@ -83,23 +83,23 @@
- all: libxgd.a $(PROGRAMS)
+diff -Nur libwmf.orig/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
+--- libwmf.orig/xgd-1.7.3/Makefile.in	Thu Dec 16 16:31:47 1999
++++ libwmf/xgd-1.7.3/Makefile.in	Thu Dec 28 14:38:50 2000
+@@ -56,13 +56,13 @@
+ LIBDIRS=-L. 
  
- install: libxgd.a $(BIN_PROGRAMS)
--	$(INSTALL) libxgd.a $(INSTALL_LIB)/libxgd.a
--	$(INSTALL) pngtogd $(INSTALL_BIN)/pngtogd
--	$(INSTALL) pngtogd2 $(INSTALL_BIN)/pngtogd2
--	$(INSTALL) gdtopng $(INSTALL_BIN)/gdtopng
--	$(INSTALL) gd2topng $(INSTALL_BIN)/gd2topng
--	$(INSTALL) gd2copypal $(INSTALL_BIN)/gd2copypal
--	$(INSTALL) gdparttopng $(INSTALL_BIN)/gdparttopng
--	$(INSTALL) webpng $(INSTALL_BIN)/webpng
--	$(INSTALL) bdftogd $(INSTALL_BIN)/bdftogd
--	$(INSTALL_DATA) gd.h $(INSTALL_INCLUDE)/gd.h
--	$(INSTALL_DATA) gdcache.h $(INSTALL_INCLUDE)/gdcache.h
--	$(INSTALL_DATA) gd_io.h $(INSTALL_INCLUDE)/gd_io.h
--	$(INSTALL_DATA) gdfontg.h $(INSTALL_INCLUDE)/gdfontg.h
--	$(INSTALL_DATA) gdfontl.h $(INSTALL_INCLUDE)/gdfontl.h
--	$(INSTALL_DATA) gdfontmb.h $(INSTALL_INCLUDE)/gdfontmb.h
--	$(INSTALL_DATA) gdfonts.h $(INSTALL_INCLUDE)/gdfonts.h
--	$(INSTALL_DATA) gdfontt.h $(INSTALL_INCLUDE)/gdfontt.h
-+	$(INSTALL) libxgd.a $(DESTDIR)$(INSTALL_LIB)/libxgd.a
-+	$(INSTALL) pngtogd $(DESTDIR)$(INSTALL_BIN)/pngtogd
-+	$(INSTALL) pngtogd2 $(DESTDIR)$(INSTALL_BIN)/pngtogd2
-+	$(INSTALL) gdtopng $(DESTDIR)$(INSTALL_BIN)/gdtopng
-+	$(INSTALL) gd2topng $(DESTDIR)$(INSTALL_BIN)/gd2topng
-+	$(INSTALL) gd2copypal $(DESTDIR)$(INSTALL_BIN)/gd2copypal
-+	$(INSTALL) gdparttopng $(DESTDIR)$(INSTALL_BIN)/gdparttopng
-+	$(INSTALL) webpng $(DESTDIR)$(INSTALL_BIN)/webpng
-+	$(INSTALL) bdftogd $(DESTDIR)$(INSTALL_BIN)/bdftogd
-+	$(INSTALL_DATA) gd.h $(DESTDIR)$(INSTALL_INCLUDE)/gd.h
-+	$(INSTALL_DATA) gdcache.h $(DESTDIR)$(INSTALL_INCLUDE)/gdcache.h
-+	$(INSTALL_DATA) gd_io.h $(DESTDIR)$(INSTALL_INCLUDE)/gd_io.h
-+	$(INSTALL_DATA) gdfontg.h $(DESTDIR)$(INSTALL_INCLUDE)/gdfontg.h
-+	$(INSTALL_DATA) gdfontl.h $(DESTDIR)$(INSTALL_INCLUDE)/gdfontl.h
-+	$(INSTALL_DATA) gdfontmb.h $(DESTDIR)$(INSTALL_INCLUDE)/gdfontmb.h
-+	$(INSTALL_DATA) gdfonts.h $(DESTDIR)$(INSTALL_INCLUDE)/gdfonts.h
-+	$(INSTALL_DATA) gdfontt.h $(DESTDIR)$(INSTALL_INCLUDE)/gdfontt.h
+ #Location where libxgd.a should be installed by "make install".
+-INSTALL_LIB=@libdir@
++INSTALL_LIB=$(DESTDIR)@libdir@
  
- gddemo: gddemo.o libxgd.a
- 	$(CC) gddemo.o -o gddemo	$(LIBDIRS) $(LIBS)
+ #Location where .h files should be installed by "make install".
+-INSTALL_INCLUDE=@includedir@
++INSTALL_INCLUDE=$(DESTDIR)@includedir@
+ 
+ #Location where useful non-test programs should be installed by "make install".
+-INSTALL_BIN=@bindir@
++INSTALL_BIN=$(DESTDIR)@bindir@
+ 
+ #
+ #
