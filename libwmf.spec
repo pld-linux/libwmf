@@ -111,7 +111,7 @@ rm -rf $RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
 
-# no static modules and *.la for gtk+ loaders - shut up check-files
+# no static modules and *.la for GTK+ loaders - shut up check-files
 rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2*/*/loaders/*.{a,la}
 
 %clean
