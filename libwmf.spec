@@ -115,7 +115,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc html-doc examples
 %attr(755,root,root) %{_bindir}/libwmf-config
 %attr(755,root,root) %{_libdir}/*.so
-%attr(755,root,root) %{_libdir}/*.la
+%{_libdir}/*.la
 %{_includedir}/*
 
 %files static
