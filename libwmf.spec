@@ -1,6 +1,7 @@
 #
 # Conditional build:
-# _without_gtk	- without gtk-loader package (which requires gtk+2-devel)
+# _without_gtk		- without gtk-loader package (which requires gtk+2-devel)
+# _without_static	- without static version
 #
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
@@ -137,9 +138,11 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.la
 %{_includedir}/*
 
+%if 0%{!?_without_static:1}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/*.a
+%endif
 
 %if %{?_without_gtk:0}%{!?_without_gtk:1}
 %files gtk-loader
