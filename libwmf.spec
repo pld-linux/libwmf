@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
 
+# no static modules and *.la for gtk+ loaders
+rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2*/*/loaders/*.{a,la}
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -140,5 +143,4 @@ rm -rf $RPM_BUILD_ROOT
 %files gtk-loader
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/gtk-2*/*/loaders/*.so
-%{_libdir}/gtk-2*/*/loaders/*.la
 %endif
