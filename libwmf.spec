@@ -1,13 +1,17 @@
+#
+# Conditional build:
+# _without_gtk	- without gtk-loader package (which requires gtk+2-devel)
+#
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.2.6
+Version:	0.2.8
 Release:	1
 Epoch:		2
 License:	GPL
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Group:		Applications/Text
-Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
@@ -17,14 +21,14 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
+%{!?_without_gtk:BuildRequires:	gtk+2-devel >= 2.1.2}
 BuildRequires:	libjpeg-devel
-#BuildRequires:	libplot-devel
 BuildRequires:	libpng-devel
-BuildRequires:	libtool
-BuildRequires:	plotutils
-Prereq:		/sbin/ldconfig
-Prereq:		sed
-Prereq:		ghostscript-fonts-std
+BuildRequires:	libtool >= 1:1.4.2-9
+PreReq:		ghostscript-fonts-std
+Requires(post):	/sbin/ldconfig
+Requires(post):	sed
+Requires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -61,6 +65,18 @@ This package contains libwmf static libraries.
 
 %description static -l pl
 Pakiet zawiera statyczn± wersjê biblioteki libwmf.
+
+%package gtk-loader
+Summary:	WMF loader for gdk_pixbuf 2.x library
+Summary(pl):	Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
+Group:		X11/Libraries
+Requires:	%{name} = %{version}
+
+%description gtk-loader
+WMF loader for gdk_pixbuf 2.x library.
+
+%description gtk-loader -l pl
+Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
 
 %prep
 %setup -q
@@ -101,8 +117,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/wmf2eps
 %attr(755,root,root) %{_bindir}/wmf2fig
 %attr(755,root,root) %{_bindir}/wmf2gd
-#%attr(755,root,root) %{_bindir}/wmf2magick
-#%attr(755,root,root) %{_bindir}/wmf2plot
 %attr(755,root,root) %{_bindir}/wmf2svg
 %attr(755,root,root) %{_bindir}/wmf2x
 %attr(755,root,root) %{_libdir}/*.so.*.*
@@ -121,3 +135,10 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/*.a
+
+%if %{?_without_gtk:0}%{!?_without_gtk:1}
+%files gtk-loader
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/gtk-2*/*/loaders/*.so
+%{_libdir}/gtk-2*/*/loaders/*.la
+%endif
