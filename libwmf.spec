@@ -1,8 +1,8 @@
 #
 # Conditional build:
-%bcond_without gtk		# without gtk-loader package (which requires gtk+2-devel)
-%bcond_without static_libs	# without static version
-
+%bcond_without	gtk		# without gtk-loader package (which requires gtk+2-devel)
+%bcond_without	static_libs	# don't build static version of library
+#
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
@@ -88,7 +88,6 @@ Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
 %patch2 -p1
 
 %build
-rm -f missing
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
@@ -107,6 +106,9 @@ rm -rf $RPM_BUILD_ROOT
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
+
+# no static modules and *.la for gtk+ loaders - shut up check-files
+rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2*/*/loaders/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
