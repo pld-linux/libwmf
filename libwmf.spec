@@ -1,19 +1,31 @@
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.2.1
-Release:	2
+Version:	0.2.2
+Release:	1
 Epoch:		2
 License:	GPL
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Group:		Applications/Text
+Group(cs):	Aplikace/Text
+Group(da):	Programmer/Tekst
 Group(de):	Applikationen/Text
-Group(fr):	Utilitaires/Texte
+Group(es):	Aplicaciones/Texto
+Group(fr):	Applications/Texte
+Group(is):	Forrit/Texti
+Group(it):	Applicazioni/Testo
+Group(ja):	¥¢¥×¥ê¥±¡¼¥·¥ç¥ó/¥Æ¥­¥¹¥È
+Group(no):	Applikasjoner/Tekst
 Group(pl):	Aplikacje/Tekst
+Group(pt):	Aplicações/Texto
+Group(ru):	ğÒÉÌÏÖÅÎÉÑ/ôÅËÓÔÏ×ÙÅ ÕÔÉÌÉÔÙ
+Group(sl):	Programi/Besedilo
+Group(sv):	Tillämpningar/Text
+Group(uk):	ğÒÉËÌÁÄÎ¦ ğÒÏÇÒÁÍÉ/ôÅËÓÔÏ×¦ ÕÔÉÌ¦ÔÉ
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-fontmap-pld.patch
-Patch1:		%{name}-gd.patch
-Patch2:		%{name}-includes.patch
+Patch1:		%{name}-includes.patch
+Patch2:		%{name}-segv.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	libpng-devel
 BuildRequires:	libjpeg-devel
@@ -45,12 +57,21 @@ okienku oraz format xpm.
 Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nag³ówkowe
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(cs):	Vıvojové prostøedky/Knihovny
+Group(da):	Udvikling/Biblioteker
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
+Group(is):	Şróunartól/Ağgerğasöfn
+Group(it):	Sviluppo/Librerie
+Group(ja):	³«È¯/¥é¥¤¥Ö¥é¥ê
+Group(no):	Utvikling/Bibliotek
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(sl):	Razvoj/Knji¾nice
+Group(sv):	Utveckling/Bibliotek
 Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name} = %{version}
 
@@ -64,12 +85,21 @@ Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
 Summary:	libwmf - static libraries
 Summary(pl):	libwmf - biblioteki statyczne
 Group:		Development/Libraries
-Group(de):	Entwicklung/Libraries
+Group(cs):	Vıvojové prostøedky/Knihovny
+Group(da):	Udvikling/Biblioteker
+Group(de):	Entwicklung/Bibliotheken
 Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
+Group(is):	Şróunartól/Ağgerğasöfn
+Group(it):	Sviluppo/Librerie
+Group(ja):	³«È¯/¥é¥¤¥Ö¥é¥ê
+Group(no):	Utvikling/Bibliotek
 Group(pl):	Programowanie/Biblioteki
 Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(pt):	Desenvolvimento/Bibliotecas
 Group(ru):	òÁÚÒÁÂÏÔËÁ/âÉÂÌÉÏÔÅËÉ
+Group(sl):	Razvoj/Knji¾nice
+Group(sv):	Utveckling/Bibliotek
 Group(uk):	òÏÚÒÏÂËÁ/â¦ÂÌ¦ÏÔÅËÉ
 Requires:	%{name}-devel = %{version}
 
@@ -91,7 +121,8 @@ aclocal
 automake -a -c
 autoconf
 %configure \
-	--with-plot
+	--with-plot \
+	--enable-magick
 %{__make}
 
 %install
