@@ -12,14 +12,14 @@ Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
 URL:		http://wvware.sourceforge.net/
-BuildRequires:	libpng-devel
-BuildRequires:	libjpeg-devel
-BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	XFree86-devel
-BuildRequires:	expat-devel
-BuildRequires:	libplot-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	expat-devel
+BuildRequires:	freetype-devel >= 2.0
+BuildRequires:	libjpeg-devel
+BuildRequires:	libplot-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libtool
 BuildRequires:	plotutils
 Prereq:		/sbin/ldconfig
@@ -73,7 +73,10 @@ libtoolize --copy --force
 aclocal
 automake -a -c -f
 autoconf
-%configure \
+if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
+	CPPFLAGS="`pkg-config libpng12 --cflags`"
+fi
+%configure CPPFLAGS="$CPPFLAGS" \
 	--with-plot \
 	--enable-magick
 %{__make}
