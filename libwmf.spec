@@ -1,8 +1,8 @@
 #
 # Conditional build:
-# _without_gtk		- without gtk-loader package (which requires gtk+2-devel)
-# _without_static	- without static version
-#
+%bcond_without gtk		# without gtk-loader package (which requires gtk+2-devel)
+%bcond_without static_libs	# without static version
+
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
@@ -22,7 +22,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
-%{!?_without_gtk:BuildRequires:	gtk+2-devel >= 2.1.2}
+%{?with_gtk:BuildRequires:	gtk+2-devel >= 2.1.2}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool >= 1:1.4.2-9
@@ -95,6 +95,7 @@ rm -f missing
 %{__autoconf}
 %{__automake}
 %configure \
+	%{!?with_static_libs:--disable-static} \
 	--with-gsfontdir=%{_fontsdir}/Type1
 
 %{__make}
@@ -102,12 +103,10 @@ rm -f missing
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
-
-# no static modules and *.la for gtk+ loaders
-rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2*/*/loaders/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -140,13 +139,13 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/*.la
 %{_includedir}/*
 
-%if 0%{!?_without_static:1}
+%if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/*.a
 %endif
 
-%if %{?_without_gtk:0}%{!?_without_gtk:1}
+%if %{with gtk}
 %files gtk-loader
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/gtk-2*/*/loaders/*.so
