@@ -1,18 +1,18 @@
 diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
---- libwmf.orig/Makefile.in	Thu Jan 25 18:03:53 2001
-+++ libwmf/Makefile.in	Thu Jan 25 21:43:40 2001
+--- libwmf.orig/Makefile.in	Fri Feb 16 02:59:20 2001
++++ libwmf/Makefile.in	Fri Feb 16 13:07:12 2001
 @@ -1,14 +1,14 @@
 -LIBS = -L./libdib -ldib @XPM_LIBS@ @LIBS@ -lm
-+LIBS = @XPM_LIBS@ @LIBS@ -lm
++LIBS = -L./libdib/.libs -ldib @XPM_LIBS@ @LIBS@ -lm
  
 -GDLIBS = -L./libdib -ldib -Lxgd-1.7.3 -lxgd @XPM_LIBS@ @LIBS@ @TTF_LIBS@ @PNG_CFLAGS@ @PNG_LIBS@ @ZLIB_LIBS@ -lm 
-+GDLIBS = @XPM_LIBS@ @LIBS@ @TTF_LIBS@ @PNG_CFLAGS@ @PNG_LIBS@ @ZLIB_LIBS@ -lm
++GDLIBS = -L./libdib/.libs -ldib -Lxgd-1.7.3/.libs -lxgd @XPM_LIBS@ @LIBS@ @TTF_LIBS@ @PNG_CFLAGS@ @PNG_LIBS@ @ZLIB_LIBS@ -lm
  
 -XFLIBS = -L./libxfig -lxfig -L./libdib -ldib @XPM_LIBS@ @LIBS@ @TTF_LIBS@ -lm
-+XFLIBS = @XPM_LIBS@ @LIBS@ @TTF_LIBS@ -lm
++XFLIBS = -L./libxfig/.libs -lxfig -L./libdib/.libs -ldib @XPM_LIBS@ @LIBS@ @TTF_LIBS@ -lm
  
 -EPSLIBS = -L./libxfig -leps -L./libdib -ldib @XPM_LIBS@ @LIBS@ @TTF_LIBS@ -lm
-+EPSLIBS = @XPM_LIBS@ @LIBS@ @TTF_LIBS@ -lm
++EPSLIBS = -L./libxfig/.libs -leps -L./libdib/.libs -ldib @XPM_LIBS@ @LIBS@ @TTF_LIBS@ -lm
  
  DOGD = @GD_LIBS@
  
@@ -21,7 +21,7 @@ diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
  
  CC = @CC@
  
-@@ -39,60 +39,57 @@
+@@ -39,60 +39,55 @@
  .SUFFIXES: .C .o
  
  WMFLIBOBJECTS =	\
@@ -56,31 +56,23 @@ diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
  
  TARGETS = wmftopng wmftofig wmftoeps xwmf
  
-+BINLDIRS = -L./.libs -L./libdib/.libs -L./libxfig/.libs -L./xgd-1.7.3/.libs
-+
  all: $(TARGETS)
  
  xwmf: libwmf.a libXwmf.a xwmf.o LIBDIB
 -	$(CC) $(LDFLAGS) -o xwmf xwmf.o -L. -lXwmf -lwmf $(LIBS)
-+	$(CC) $(LDFLAGS) -o xwmf xwmf.o $(BINLDIRS) -lXwmf -lwmf -ldib $(LIBS)
++	$(CC) $(LDFLAGS) -o xwmf xwmf.o -L./.libs -lXwmf -lwmf $(LIBS)
  
  wmftopng:	libwmf.a libgdwmf.a wmftopng.o LIBXGD LIBDIB
 -	$(CC) $(LDFLAGS) -o wmftopng wmftopng.o -L. -lgdwmf -lwmf $(GDLIBS)
-+	$(CC) $(LDFLAGS) -o wmftopng wmftopng.o $(BINLDIRS) -lgdwmf -lwmf -ldib -lxgd $(GDLIBS)
++	$(CC) $(LDFLAGS) -o wmftopng wmftopng.o -L./.libs -lgdwmf -lwmf $(GDLIBS)
  
  wmftofig: libwmf.a libxfwmf.a wmftofig.o LIBXFIG
 -	$(CC) $(LDFLAGS) -o wmftofig wmftofig.o -L. -lxfwmf -lwmf $(XFLIBS)
-+	$(CC) $(LDFLAGS) -o wmftofig wmftofig.o $(BINLDIRS) -lxfwmf -lwmf -ldib -lxfig $(XFLIBS)
++	$(CC) $(LDFLAGS) -o wmftofig wmftofig.o -L./.libs -lxfwmf -lwmf $(XFLIBS)
  
  wmftoeps: libwmf.a libepswmf.a wmftoeps.o LIBXFIG
 -	$(CC) $(LDFLAGS) -o wmftoeps wmftoeps.o -L. -lepswmf -lwmf $(EPSLIBS)
-+	$(CC) $(LDFLAGS) -o wmftoeps wmftoeps.o $(BINLDIRS) -lepswmf -lwmf -ldib -leps $(EPSLIBS)
-+
-+libwmf.a:	$(WMFLIBOBJECTS) LIBDIB
-+	libtool $(CC) $(LDFLAGS) -o libwmf.la $(WMFLIBOBJECTS) $(LIBS) -rpath @libdir@
-+
-+libgdwmf.a:	$(GDLIBOBJECTS) LIBDIB LIBXGD
-+	libtool $(CC) $(LDFLAGS) -o libgdwmf.la $(GDLIBOBJECTS) $(GDLIBS) -rpath @libdir@
++	$(CC) $(LDFLAGS) -o wmftoeps wmftoeps.o -L./.libs -lepswmf -lwmf $(EPSLIBS)
  
 -libwmf.a:	$(WMFLIBOBJECTS)
 -	 $(AR) rc libwmf.a $(WMFLIBOBJECTS) 
@@ -101,18 +93,24 @@ diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
 -libXwmf.a:	$(XLIBOBJECTS)
 -	 $(AR) rc libXwmf.a $(XLIBOBJECTS) 
 -	 $(RANLIB) libXwmf.a
-+libxfwmf.a:	$(XFLIBOBJECTS) LIBDIB LIBXFIG
-+	libtool $(CC) $(LDFLAGS) -o libxfwmf.la $(XFLIBOBJECTS) $(XFLIBS) -rpath @libdir@
++libwmf.a:	$(WMFLIBOBJECTS) LIBDIB
++	libtool $(CC) $(LDFLAGS) -o libwmf.la $(WMFLIBOBJECTS) $(LIBS) -rpath @libdir@
 +
-+libepswmf.a:	$(EPSLIBOBJECTS) LIBDIB LIBXFIG
-+	libtool $(CC) $(LDFLAGS) -o libepswmf.la $(EPSLIBOBJECTS) $(EPSLIBS) -rpath @libdir@
++libgdwmf.a:	$(GDLIBOBJECTS) LIBDIB LIBXGD libwmf.a
++	libtool $(CC) $(LDFLAGS) -o libgdwmf.la $(GDLIBOBJECTS) -L./.libs -lwmf $(GDLIBS) -rpath @libdir@
 +
-+libXwmf.a:	$(XLIBOBJECTS) LIBDIB
-+	libtool $(CC) $(LDFLAGS) -o libXwmf.la $(XLIBOBJECTS) $(LIBS) -rpath @libdir@
++libxfwmf.a:	$(XFLIBOBJECTS) LIBDIB LIBXFIG libwmf.a
++	libtool $(CC) $(LDFLAGS) -o libxfwmf.la $(XFLIBOBJECTS) -L./.libs -lwmf $(XFLIBS) -rpath @libdir@
++
++libepswmf.a:	$(EPSLIBOBJECTS) LIBDIB LIBXFIG libwmf.a
++	libtool $(CC) $(LDFLAGS) -o libepswmf.la $(EPSLIBOBJECTS) -L./.libs -lwmf $(EPSLIBS) -rpath @libdir@
++
++libXwmf.a:	$(XLIBOBJECTS) LIBDIB libwmf.a
++	libtool $(CC) $(LDFLAGS) -o libXwmf.la $(XLIBOBJECTS) -L./.libs -lwmf $(LIBS) -rpath @libdir@
  
  LIBDIB:
  	@echo making libdib in libdib
-@@ -109,8 +106,11 @@
+@@ -109,8 +104,11 @@
  %.o: %.c 
  	$(CC) $(CFLAGS) -c $*.c 
  
@@ -125,7 +123,7 @@ diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
  
  cleansub:
  	@echo cleaning libdib in libdib
-@@ -131,7 +131,7 @@
+@@ -131,7 +129,7 @@
  distclean: realclean
  
  realclean: realcleansub
@@ -134,7 +132,7 @@ diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
  
  realcleansub:
  	@echo cleaning libdib in libdib
-@@ -150,11 +150,21 @@
+@@ -150,11 +148,11 @@
  	$(INSTALL) $(srcdir)/wmftopng $(DESTDIR)$(bindir)/wmftopng
  	$(INSTALL) $(srcdir)/wmftofig $(DESTDIR)$(bindir)/wmftofig
  	$(INSTALL) $(srcdir)/wmftoeps $(DESTDIR)$(bindir)/wmftoeps
@@ -144,26 +142,16 @@ diff -Nur libwmf.orig/Makefile.in libwmf/Makefile.in
 -	$(INSTALL_DATA) $(srcdir)/libxfwmf.a $(DESTDIR)$(libdir)/libxfwmf.a
 -	$(INSTALL_DATA) $(srcdir)/libepswmf.a $(DESTDIR)$(libdir)/libepswmf.a
 +	libtool $(INSTALL_DATA) $(srcdir)/libwmf.la $(DESTDIR)$(libdir)/libwmf.la
-+	sed -e "s|dependency_libs='|& -ldib|" < $(DESTDIR)$(libdir)/libwmf.la \
-+		> $(DESTDIR)$(libdir)/.libwmf.la && mv -f $(DESTDIR)$(libdir)/{.,}libwmf.la
 +	libtool $(INSTALL_DATA) $(srcdir)/libgdwmf.la $(DESTDIR)$(libdir)/libgdwmf.la
-+	sed -e "s|dependency_libs='|& -ldib -lwmf -lxgd|" < $(DESTDIR)$(libdir)/libgdwmf.la \
-+		> $(DESTDIR)$(libdir)/.libgdwmf.la && mv -f $(DESTDIR)$(libdir)/{.,}libgdwmf.la
 +	libtool $(INSTALL_DATA) $(srcdir)/libXwmf.la $(DESTDIR)$(libdir)/libXwmf.la
-+	sed -e "s|dependency_libs='|& -ldib -lwmf|" < $(DESTDIR)$(libdir)/libXwmf.la \
-+		> $(DESTDIR)$(libdir)/.libXwmf.la && mv -f $(DESTDIR)$(libdir)/{.,}libXwmf.la
 +	libtool $(INSTALL_DATA) $(srcdir)/libxfwmf.la $(DESTDIR)$(libdir)/libxfwmf.la
-+	sed -e "s|dependency_libs='|& -ldib -lwmf -lxfig|" < $(DESTDIR)$(libdir)/libxfwmf.la \
-+		> $(DESTDIR)$(libdir)/.libxfwmf.la && mv -f $(DESTDIR)$(libdir)/{.,}libxfwmf.la
 +	libtool $(INSTALL_DATA) $(srcdir)/libepswmf.la $(DESTDIR)$(libdir)/libepswmf.la
-+	sed -e "s|dependency_libs='|& -ldib -lwmf -leps|" < $(DESTDIR)$(libdir)/libepswmf.la \
-+		> $(DESTDIR)$(libdir)/.libepswmf.la && mv -f $(DESTDIR)$(libdir)/{.,}libepswmf.la
  	$(INSTALL_DATA) wmfapi.h $(DESTDIR)$(INCLUDEDIR)/wmfapi.h
  	$(INSTALL_DATA) gdwmfapi.h $(DESTDIR)$(INCLUDEDIR)/gdwmfapi.h
  	$(INSTALL_DATA) Xwmfapi.h $(DESTDIR)$(INCLUDEDIR)/Xwmfapi.h
 diff -Nur libwmf.orig/libdib/Makefile.in libwmf/libdib/Makefile.in
---- libwmf.orig/libdib/Makefile.in	Thu Jan 25 18:03:53 2001
-+++ libwmf/libdib/Makefile.in	Thu Jan 25 21:43:07 2001
+--- libwmf.orig/libdib/Makefile.in	Fri Feb 16 02:59:20 2001
++++ libwmf/libdib/Makefile.in	Fri Feb 16 13:06:00 2001
 @@ -1,6 +1,6 @@
  LIBS = @LIBS@
  
@@ -216,8 +204,8 @@ diff -Nur libwmf.orig/libdib/Makefile.in libwmf/libdib/Makefile.in
  
  #  DO  NOT  DELETE THIS LINE -- make depend depends on it.
 diff -Nur libwmf.orig/libxfig/Makefile.in libwmf/libxfig/Makefile.in
---- libwmf.orig/libxfig/Makefile.in	Thu Jan 25 18:03:53 2001
-+++ libwmf/libxfig/Makefile.in	Thu Jan 25 21:43:07 2001
+--- libwmf.orig/libxfig/Makefile.in	Fri Feb 16 02:59:20 2001
++++ libwmf/libxfig/Makefile.in	Fri Feb 16 13:06:00 2001
 @@ -1,6 +1,6 @@
  LIBS = @LIBS@
  
@@ -282,8 +270,8 @@ diff -Nur libwmf.orig/libxfig/Makefile.in libwmf/libxfig/Makefile.in
  installdirs:
  	$(MKINSTALLDIRS) $(DESTDIR)@libdir@ \
 diff -Nur libwmf.orig/xgd-1.7.3/Makefile.in libwmf/xgd-1.7.3/Makefile.in
---- libwmf.orig/xgd-1.7.3/Makefile.in	Thu Jan 25 18:03:53 2001
-+++ libwmf/xgd-1.7.3/Makefile.in	Thu Jan 25 21:43:07 2001
+--- libwmf.orig/xgd-1.7.3/Makefile.in	Fri Feb 16 02:59:20 2001
++++ libwmf/xgd-1.7.3/Makefile.in	Fri Feb 16 13:06:00 2001
 @@ -53,7 +53,8 @@
  #-L. as this allows the gd library itself to be found.
  #Put -L. first so that old versions of the gd library elsewhere

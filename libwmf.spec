@@ -2,7 +2,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.1.21b
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
@@ -68,7 +68,7 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 
 %build
 %configure \
-	--with-ttf
+	--with-ttf=/usr
 %{__make}
 
 %install
@@ -77,7 +77,14 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/xgd}
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_includedir}/{gd.h,gd_io.h,gdf*,gdc*} $RPM_BUILD_ROOT%{_includedir}/xgd
+mv -f $RPM_BUILD_ROOT%{_includedir}/{gd.h,gd_io.h,gdf*,gdc*} \
+	$RPM_BUILD_ROOT%{_includedir}/xgd
+
+# remove unwanted paths from libtool scripts
+for f in $RPM_BUILD_ROOT%{_libdir}/lib{X,eps,gd,xf,}wmf.la ; do
+	cat $f | awk '/^dependency_libs/ { gsub("-L\s*[^\s]*/\.libs ","") } //' >$f.tmp
+	mv -f $f.tmp $f
+done
 
 rm -rf notes/testprogram
 gzip -9nf winepatches/* notes/*.txt CHANGELOG CREDITS README
@@ -90,7 +97,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc doc examples notes winepatches *.gz
+%doc *.gz
 # only these binaries - other conflicts with gd
 %attr(755,root,root) %{_bindir}/bdftogd
 %attr(755,root,root) %{_bindir}/wmftofig
@@ -101,6 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
+%doc doc examples notes winepatches
 %{_includedir}/*
 %{_libdir}/*.so
 %attr(755,root,root) %{_libdir}/*.la
