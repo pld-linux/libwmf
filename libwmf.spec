@@ -69,10 +69,11 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 %patch2 -p1
 
 %build
+rm -f missing
 %{__libtoolize}
-aclocal
-%{__automake}
+%{__aclocal}
 %{__autoconf}
+%{__automake}
 if [ -f %{_pkgconfigdir}/libpng12.pc ] ; then
 	CPPFLAGS="`pkg-config libpng12 --cflags`"
 fi
