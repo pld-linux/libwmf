@@ -71,7 +71,7 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 %build
 libtoolize --copy --force
 aclocal
-automake -a -c
+automake -a -c -f
 autoconf
 %configure \
 	--with-plot \
