@@ -23,6 +23,7 @@ BuildRequires:	expat-devel
 BuildRequires:	libplot-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	libtool
 Prereq:		/sbin/ldconfig
 Prereq:		sed
 Prereq:		ghostscript-fonts-std
@@ -44,8 +45,12 @@ Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nagЁСwkowe
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Разработка/Библиотеки
+Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -59,8 +64,12 @@ Summary:	libwmf - static libraries
 Summary(pl):	libwmf - biblioteki statyczne
 Group:		Development/Libraries
 Group(de):	Entwicklung/Libraries
+Group(es):	Desarrollo/Bibliotecas
 Group(fr):	Development/Librairies
 Group(pl):	Programowanie/Biblioteki
+Group(pt_BR):	Desenvolvimento/Bibliotecas
+Group(ru):	Разработка/Библиотеки
+Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
