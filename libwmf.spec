@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.2.8.2
-Release:	1
+Release:	2
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -95,6 +95,8 @@ Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
 %{__automake}
 %configure \
 	%{!?with_static_libs:--disable-static} \
+	--with-sysfontmap=%{_fontsdir}/ghostscript-fonts-std.font \
+	--with-gsfontmap=%{_fontsdir}/Type1/Fontmap \
 	--with-gsfontdir=%{_fontsdir}/Type1
 
 %{__make}
