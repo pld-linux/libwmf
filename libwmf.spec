@@ -68,12 +68,19 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 
 %build
 %configure \
+	--enable-shared \
 	--with-ttf=/usr
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/xgd}
+
+# avoid relinking
+for f in *.la ; do
+	sed -e '/^relink_command/d' $f > $f.new
+	mv -f $f.new $f
+done
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
