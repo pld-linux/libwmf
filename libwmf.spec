@@ -2,7 +2,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.1.21b
-Release:	4
+Release:	5
 Epoch:		2
 License:	GPL
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
@@ -14,11 +14,11 @@ Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared.patch
 URL:		http://wvware.sourceforge.net/
-BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	libtool
 BuildRequires:	libpng-devel
-BuildRequires:	freetype-devel
+BuildRequires:	freetype1-devel
 BuildRequires:	XFree86-devel
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 libwmf is a library for unix like machines that can convert wmf files
@@ -28,8 +28,8 @@ convert to png, and an X one to draw direct to an X window or pixmap.
 %description -l pl
 libwmf jest bibliotek± dla systemów uniksowych, która konwertuje pliki
 wmf na inne formaty. Aktualnie obs³uguje formaty fig i eps, format png
-poprzez bibliotekê gd oraz - poprzez biblioteki X Window - rysowanie
-w okienku oraz format xpm.
+poprzez bibliotekê gd oraz - poprzez biblioteki X Window - rysowanie w
+okienku oraz format xpm.
 
 %package devel
 Summary:	libwmf - header files
