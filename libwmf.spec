@@ -7,21 +7,6 @@ Epoch:		2
 License:	GPL
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Group:		Applications/Text
-Group(cs):	Aplikace/Text
-Group(da):	Programmer/Tekst
-Group(de):	Applikationen/Text
-Group(es):	Aplicaciones/Texto
-Group(fr):	Applications/Texte
-Group(is):	Forrit/Texti
-Group(it):	Applicazioni/Testo
-Group(ja):	╔╒╔в╔Й╔╠║╪╔╥╔Г╔С/╔ф╔╜╔╧╔х
-Group(no):	Applikasjoner/Tekst
-Group(pl):	Aplikacje/Tekst
-Group(pt):	AplicaГУes/Texto
-Group(ru):	Приложения/Текстовые утилиты
-Group(sl):	Programi/Besedilo
-Group(sv):	TillДmpningar/Text
-Group(uk):	Прикладн╕ Програми/Текстов╕ утил╕ти
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
@@ -57,22 +42,6 @@ okienku oraz format xpm.
 Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nagЁСwkowe
 Group:		Development/Libraries
-Group(cs):	VЩvojovИ prostЬedky/Knihovny
-Group(da):	Udvikling/Biblioteker
-Group(de):	Entwicklung/Bibliotheken
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(is):	чrСunartСl/AПgerПasЖfn
-Group(it):	Sviluppo/Librerie
-Group(ja):	Ё╚х╞/╔И╔╓╔ж╔И╔Й
-Group(no):	Utvikling/Bibliotek
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(pt):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(sl):	Razvoj/Knji╬nice
-Group(sv):	Utveckling/Bibliotek
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name} = %{version}
 
 %description devel
@@ -85,22 +54,6 @@ Pakiet zawiera pliki nagЁСwkowe do biblioteki libwmf.
 Summary:	libwmf - static libraries
 Summary(pl):	libwmf - biblioteki statyczne
 Group:		Development/Libraries
-Group(cs):	VЩvojovИ prostЬedky/Knihovny
-Group(da):	Udvikling/Biblioteker
-Group(de):	Entwicklung/Bibliotheken
-Group(es):	Desarrollo/Bibliotecas
-Group(fr):	Development/Librairies
-Group(is):	чrСunartСl/AПgerПasЖfn
-Group(it):	Sviluppo/Librerie
-Group(ja):	Ё╚х╞/╔И╔╓╔ж╔И╔Й
-Group(no):	Utvikling/Bibliotek
-Group(pl):	Programowanie/Biblioteki
-Group(pt_BR):	Desenvolvimento/Bibliotecas
-Group(pt):	Desenvolvimento/Bibliotecas
-Group(ru):	Разработка/Библиотеки
-Group(sl):	Razvoj/Knji╬nice
-Group(sv):	Utveckling/Bibliotek
-Group(uk):	Розробка/Б╕бл╕отеки
 Requires:	%{name}-devel = %{version}
 
 %description static
