@@ -1,8 +1,8 @@
 Summary:	libwmf - library to convert wmf files
 Summary:	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.1.17
-Release:	3
+Version:	0.1.21
+Release:	1
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -10,10 +10,10 @@ Group(de):	Applikationen/Text
 Group(fr):	Utilitaires/Texte
 Group(pl):	Aplikacje/Tekst
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
-Source0:	http://www.csn.ul.ie/~caolan/publink/libwmf/%{name}-%{version}.tar.gz
+Source0:	http://download.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-shared.patch
-URL:		http://www.csn.ul.ie/~caolan/docs/libwmf.html
+URL:		http://wvware.sourceforge.net/
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 BuildRequires:	libtool
 BuildRequires:	libpng-devel
