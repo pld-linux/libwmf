@@ -46,7 +46,7 @@ okienku oraz format xpm.
 Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nag³ówkowe
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description devel
 This package contains libwmf header files.
@@ -58,7 +58,7 @@ Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
 Summary:	libwmf - static libraries
 Summary(pl):	libwmf - biblioteki statyczne
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}
+Requires:	%{name}-devel = %{epoch}:%{version}
 
 %description static
 This package contains libwmf static libraries.
@@ -70,7 +70,7 @@ Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 Summary:	WMF loader for gdk_pixbuf 2.x library
 Summary(pl):	Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
 Group:		X11/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description gtk-loader
 WMF loader for gdk_pixbuf 2.x library.
