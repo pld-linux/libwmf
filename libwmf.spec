@@ -1,8 +1,8 @@
 Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
-Version:	0.1.21b
-Release:	5
+Version:	0.2.0
+Release:	1
 Epoch:		2
 License:	GPL
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
@@ -11,13 +11,17 @@ Group(de):	Applikationen/Text
 Group(fr):	Utilitaires/Texte
 Group(pl):	Aplikacje/Tekst
 Source0:	ftp://download.sourceforge.net/pub/sourceforge/wvware/%{name}-%{version}.tar.gz
-Patch0:		%{name}-DESTDIR.patch
-Patch1:		%{name}-shared.patch
+Patch0:		%{name}-fontmap-pld.patch
 URL:		http://wvware.sourceforge.net/
-BuildRequires:	libtool
 BuildRequires:	libpng-devel
-BuildRequires:	freetype1-devel
+BuildRequires:	libjpeg-devel
+BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	XFree86-devel
+BuildRequires:	expat-devel
+BuildRequires:	libplot-devel
+Prereq:		/sbin/ldconfig
+Prereq:		sed
+Prereq:		ghostscript-fonts-std
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -62,63 +66,54 @@ This package contains libwmf static libraries.
 Pakiet zawiera statyczn± wersjê biblioteki libwmf.
 
 %prep
-%setup -q -n %{name}
-%patch0 -p1
-%patch1 -p1
+%setup -q
+%patch -p1
 
 %build
 %configure \
-	--enable-shared \
-	--with-ttf=/usr
+	--with-plot
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/xgd}
-
-# avoid relinking
-for f in *.la ; do
-	sed -e '/^relink_command/d' $f > $f.new
-	mv -f $f.new $f
-done
 
 %{__make} install DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_includedir}/{gd.h,gd_io.h,gdf*,gdc*} \
-	$RPM_BUILD_ROOT%{_includedir}/xgd
-
-# remove unwanted paths from libtool scripts
-for f in $RPM_BUILD_ROOT%{_libdir}/lib{X,eps,gd,xf,}wmf.la ; do
-	cat $f | awk '/^dependency_libs/ { gsub("-L[ \t]*[^ \t]*/\.libs ","") } //' >$f.tmp
-	mv -f $f.tmp $f
-done
-
-rm -rf notes/testprogram
-gzip -9nf winepatches/* notes/*.txt CHANGELOG CREDITS README
+mv -f $RPM_BUILD_ROOT%{_prefix}/doc ./html-doc
+gzip -9nf CREDITS ChangeLog README TODO
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
+%post
+/sbin/ldconfig
+%{_bindir}/libwmf-fontmap >/dev/null
+
 %postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
 %doc *.gz
-# only these binaries - other conflicts with gd
-%attr(755,root,root) %{_bindir}/bdftogd
-%attr(755,root,root) %{_bindir}/wmftofig
-%attr(755,root,root) %{_bindir}/wmftopng
-%attr(755,root,root) %{_bindir}/wmftoeps
-%attr(755,root,root) %{_bindir}/xwmf
+%attr(755,root,root) %{_bindir}/libwmf-fontmap
+%attr(755,root,root) %{_bindir}/wmf2eps
+%attr(755,root,root) %{_bindir}/wmf2fig
+%attr(755,root,root) %{_bindir}/wmf2gd
+%attr(755,root,root) %{_bindir}/wmf2magick
+%attr(755,root,root) %{_bindir}/wmf2plot
+%attr(755,root,root) %{_bindir}/wmf2svg
+%attr(755,root,root) %{_bindir}/wmf2x
 %attr(755,root,root) %{_libdir}/*.so.*.*
+%dir %{_datadir}/libwmf
+%dir %{_datadir}/libwmf/fonts
+%ghost %{_datadir}/libwmf/fonts/fontmap
 
 %files devel
 %defattr(644,root,root,755)
-%doc doc examples notes winepatches
-%{_includedir}/*
-%{_libdir}/*.so
+%doc html-doc examples
+%attr(755,root,root) %{_bindir}/libwmf-config
+%attr(755,root,root) %{_libdir}/*.so
 %attr(755,root,root) %{_libdir}/*.la
+%{_includedir}/*
 
 %files static
 %defattr(644,root,root,755)

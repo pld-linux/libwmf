@@ -1,0 +1,42 @@
+--- libwmf-0.2.0/fonts/libwmf-fontmap.in.orig	Sat May 19 14:12:06 2001
++++ libwmf-0.2.0/fonts/libwmf-fontmap.in	Mon Jun 11 13:24:44 2001
+@@ -33,9 +33,9 @@
+ fi
+ 
+ if test "x$font_dir" = "x"; then
+-	font_dir="@prefix@/share/@PACKAGE@/fonts"
++	font_dir="@prefix@/share/@PACKAGE@/fonts /usr/share/fonts/Type1 /usr/share/fonts/TTF"
+ else
+-	font_dir="$font_dir @prefix@/share/@PACKAGE@/fonts"
++	font_dir="$font_dir @prefix@/share/@PACKAGE@/fonts /usr/share/fonts/Type1 /usr/share/fonts/TTF"
+ fi
+ 
+ if test $echo_help = yes; then
+@@ -64,9 +64,9 @@
+ 		font_cwd=`pwd`;
+ 		echo scanning $i;
+ 
+-		for j in `ls *.afm 2> /dev/null`; do
+-			font_root=`echo $j | sed s/.afm//`
+-			font_metrics=$font_cwd/$font_root.afm
++		for j in `ls *.afm afm/*.afm 2> /dev/null`; do
++			font_root=`echo $j | sed -e 's@.*/@@' -e 's@\.afm@@'`
++			font_metrics=$font_cwd/$j
+ 			font_glyphs=
+ 			if test -r $font_cwd/$font_root.pfa; then
+ 				font_glyphs=$font_cwd/$font_root.pfa
+@@ -75,10 +75,10 @@
+ 			fi
+ 			if test "x$font_glyphs" != "x"; then
+ 				echo font: $font_root
+-				FontName=`grep "FontName " $font_metrics | sed "s/FontName //"`
+-				FullName=`grep "FullName " $font_metrics | sed "s/FullName //"`
+-				FamilyName=`grep "FamilyName " $font_metrics | sed "s/FamilyName //"`
+-				Weight=`grep "Weight " $font_metrics | sed "s/Weight //"`
++				FontName=`grep "FontName " $font_metrics | sed "s/FontName //" | tr -d '\r'`
++				FullName=`grep "FullName " $font_metrics | sed "s/FullName //" | tr -d '\r'`
++				FamilyName=`grep "FamilyName " $font_metrics | sed "s/FamilyName //" | tr -d '\r'`
++				Weight=`grep "Weight " $font_metrics | sed "s/Weight //" | tr -d '\r'`
+ 				cd $font_pwd
+ 				echo '<font format="type1" metrics="'$font_metrics'" glyphs="'$font_glyphs'" name="'$FontName'" fullname="'$FullName'" familyname="'$FamilyName'" weight="'$Weight'" version="0.1" alias="'$FontName'"/>' >> $font_map
+ 				cd $font_cwd
