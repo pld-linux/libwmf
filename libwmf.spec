@@ -1,51 +1,44 @@
-%define	name	libwmf
-%define	version	0.1.10
-%define	release	1
-%define	serial	2
-
 Summary:	libwmf, library to convert wmf files.
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
-Serial:		%{serial}
+Name:		libwmf
+Version:	0.1.11
+Release:	1
+Serial:		2
 Copyright:	GPL
 Group:		Utilities/Text
-URL:		http://www.csn.ul.ie/~caolan/docs/libwmf.html
 Vendor:		Caolan McNamara <Caolan.McNamara@ul.ie>
 Source:		http://www.csn.ul.ie/~caolan/publink/libwmf/%{name}-%{version}.tar.gz
-Distribution:	Freshmeat RPMs
-Packager:	Ryan Weaver <ryanw@infohwy.com>
+URL:		http://www.csn.ul.ie/~caolan/docs/libwmf.html
 Requires:	freetype
-BuildRoot:	/tmp/%{name}-%{version}
+BuildRoot:	/tmp/%{name}-%{version}-root
 
 %description
-libwmf is a library for unix like machines that can convert wmf
-files into other formats, currently it supports a gd binding
-to convert to gif, and an X one to draw direct to an X window
-or pixmap.
+libwmf is a library for unix like machines that can convert wmf files into
+other formats, currently it supports a gd binding to convert to gif, and an
+X one to draw direct to an X window or pixmap.
 
 %prep
 %setup -q -n %{name}
-CFLAGS=$RPM_OPT_FLAGS ./configure --prefix=/usr
+LDFLAGS="-s"; export LDFLAGS
+%configure
 
 %build
 make
 
 %install
-if [ -d $RPM_BUILD_ROOT ] && [ ! -L $RPM_BUILD_ROOT ]; then rm -r $RPM_BUILD_ROOT/ ; fi
-mkdir -p $RPM_BUILD_ROOT/usr
+rm -rf $RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT%{_prefix}
 
-make prefix=$RPM_BUILD_ROOT/usr install
+make DESTDIR=$RPM_BUILD_ROOT install
 
 %clean
-if [ -d $RPM_BUILD_ROOT ] && [ ! -L $RPM_BUILD_ROOT ]; then rm -r $RPM_BUILD_ROOT/ ; fi
+rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,root,root)
-%doc doc examples notes winepatches CHANGELOG COPYING CREDITS README TODO libwmf.lsm
-/usr/bin/*
-/usr/lib/*
-/usr/include/*
+%defattr(644,root,root,755)
+%doc doc examples notes winepatches CHANGELOG CREDITS README TODO libwmf.lsm
+%{_bindir}/*
+%{_libdir}/*
+%{_includedir}/*
 
 %changelog
 * Mon May 24 1999 Ryan Weaver <ryanw@infohwy.com>
