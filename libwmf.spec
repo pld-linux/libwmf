@@ -10,7 +10,7 @@ Source:		http://www.csn.ul.ie/~caolan/publink/libwmf/%{name}-%{version}.tar.gz
 Patch:		libwmf-DESTDIR.patch
 URL:		http://www.csn.ul.ie/~caolan/docs/libwmf.html
 Requires:	freetype
-BuildRoot:	/tmp/%{name}-%{version}-root
+BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 libwmf is a library for unix like machines that can convert wmf files into
