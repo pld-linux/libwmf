@@ -24,6 +24,7 @@ BuildRequires:	libplot-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
+BuildRequires:	plotutils
 Prereq:		/sbin/ldconfig
 Prereq:		sed
 Prereq:		ghostscript-fonts-std
