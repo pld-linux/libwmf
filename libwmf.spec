@@ -28,6 +28,8 @@ BuildRequires:	libpng-devel
 BuildRequires:	libtool >= 1:1.4.2-9
 PreReq:		ghostscript-fonts-std
 Requires(post):	/sbin/ldconfig
+Requires(post):	sed
+Requires:	sed
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags_ia32	-fomit-frame-pointer
