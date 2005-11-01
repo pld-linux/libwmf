@@ -1,0 +1,8 @@
+- updated to 0.2.0, removed obsolete DESTDIR and shared patches
+- fontmap-pld patch - fonts in /usr/share/fonts, .afm files in subdirectory;
+  strip CRs - found in some AFMs
+- don't include fonts - require ghostscript-fonts-std instead
+- freetype2 now; new BuildRequires: expat-devel, libplot-devel, libjpeg-devel
+  still uses own, modified version of libgd (2.0.1 now)
+  WARNING: libwmf 0.2.x is incompatible with 0.1.x - don't remove old ver. yet
+  (ImageMagick must be patched or updated)
