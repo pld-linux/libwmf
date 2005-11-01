@@ -46,6 +46,17 @@ wmf na inne formaty. Aktualnie obs³uguje formaty fig i eps, format png
 poprzez bibliotekê gd oraz - poprzez biblioteki X Window - rysowanie w
 okienku oraz format xpm.
 
+%package libs
+Summary:	libwmf - libraries
+Summary(pl):	libwmf - biblioteki
+Group:		Libraries
+
+%description libs
+This package contains libwmf libraries.
+
+%description libs -l pl
+Ten pakiet zawiera biblioteki libwmf.
+
 %package devel
 Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nag³ówkowe
@@ -59,17 +70,6 @@ This package contains libwmf header files.
 
 %description devel -l pl
 Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
-
-%package libs
-Summary:	libwmf - libraries
-Summary(pl):	libwmf - biblioteki
-Group:		Libraries
-
-%description libs
-This package contains libwmf libraries.
-
-%description libs -l pl
-Ten pakiet zawiera biblioteki libwmf.
 
 %package static
 Summary:	libwmf - static libraries
@@ -149,6 +149,10 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/libwmf/fonts
 %ghost %{_datadir}/libwmf/fonts/fontmap
 
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/*.so.*.*
+
 %files devel
 %defattr(644,root,root,755)
 %doc html-doc examples
@@ -156,10 +160,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/*.so
 %{_libdir}/*.la
 %{_includedir}/*
-
-%files libs
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*.*
 
 %if %{with static_libs}
 %files static
