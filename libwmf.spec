@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.2.8.4
-Release:	1
+Release:	1.1
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -49,7 +49,7 @@ okienku oraz format xpm.
 Summary:	libwmf - header files
 Summary(pl):	libwmf - pliki nag³ówkowe
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 # libwmflite(.la) has no additional deps
 # libwmf(.la) needs freetype-devel, XFree86-devel, expat-devel, libjpeg-devel, libpng-devel
 
@@ -58,6 +58,13 @@ This package contains libwmf header files.
 
 %description devel -l pl
 Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
+
+%package libs
+Summary:	libwmf - libraries
+Group:		Libraries
+
+%description libs
+This package contains libwmf libraries.
 
 %package static
 Summary:	libwmf - static libraries
@@ -118,10 +125,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2*/*/loaders/*.{a,la}
 rm -rf $RPM_BUILD_ROOT
 
 %post
-/sbin/ldconfig
-%{_bindir}/libwmf-fontmap >/dev/null
+%{_bindir}/libwmf-fontmap > /dev/null
 
-%postun	-p /sbin/ldconfig
+%post	libs -p /sbin/ldconfig
+%postun	libs -p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
@@ -132,7 +139,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/wmf2gd
 %attr(755,root,root) %{_bindir}/wmf2svg
 %attr(755,root,root) %{_bindir}/wmf2x
-%attr(755,root,root) %{_libdir}/*.so.*.*
 %dir %{_datadir}/libwmf
 %dir %{_datadir}/libwmf/fonts
 %ghost %{_datadir}/libwmf/fonts/fontmap
@@ -144,6 +150,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/*.so
 %{_libdir}/*.la
 %{_includedir}/*
+
+%files libs
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/*.so.*.*
 
 %if %{with static_libs}
 %files static
