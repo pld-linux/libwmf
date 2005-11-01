@@ -62,10 +62,14 @@ Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
 
 %package libs
 Summary:	libwmf - libraries
+Summary(pl):	libwmf - biblioteki
 Group:		Libraries
 
 %description libs
 This package contains libwmf libraries.
+
+%description libs -l pl
+Ten pakiet zawiera biblioteki libwmf.
 
 %package static
 Summary:	libwmf - static libraries
