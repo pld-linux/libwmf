@@ -1,0 +1,2 @@
+- don't relink in %install
+- updated shared patch (latest libtool _really_ sucks)
