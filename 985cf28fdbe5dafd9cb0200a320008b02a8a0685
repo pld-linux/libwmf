@@ -1,0 +1,4 @@
+- make both shared and static libraries
+- BuildRequires: libtool, zlib-devel
+- xgd (which is modified gd) includes go to %{_includedir}/xgd to avoid
+  conflict with gd-devel
