@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.2.8.4
-Release:	1.1
+Release:	1.2
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -30,6 +30,7 @@ PreReq:		ghostscript-fonts-std
 Requires(post):	/sbin/ldconfig
 Requires(post):	sed
 Requires:	sed
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags_ia32	-fomit-frame-pointer
@@ -116,6 +117,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
+rm -rf html-doc
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
 
 # no static modules and *.la for GTK+ loaders - shut up check-files
