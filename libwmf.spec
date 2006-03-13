@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.2.8.4
-Release:	2
+Release:	3
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -17,8 +17,7 @@ Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
 URL:		http://wvware.sourceforge.net/
-BuildRequires:	XFree86-devel
-BuildRequires:	autoconf
+BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
@@ -26,9 +25,10 @@ BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libtool >= 1:1.4.2-9
-PreReq:		ghostscript-fonts-std
-Requires(post):	/sbin/ldconfig
+BuildRequires:	xorg-lib-libX11-devel
+Requires(post):	ghostscript-fonts-std
 Requires(post):	sed
+Requires:	ghostscript-fonts-std
 Requires:	sed
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -63,7 +63,7 @@ Summary(pl):	libwmf - pliki nag³ówkowe
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 # libwmflite(.la) has no additional deps
-# libwmf(.la) needs freetype-devel, XFree86-devel, expat-devel, libjpeg-devel, libpng-devel
+# libwmf(.la) needs freetype-devel, expat-devel, libjpeg-devel, libpng-devel, xorg-lib-libX11-devel
 
 %description devel
 This package contains libwmf header files.
