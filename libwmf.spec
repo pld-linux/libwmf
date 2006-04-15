@@ -49,8 +49,8 @@ okienku oraz format xpm.
 %package libs
 Summary:	libwmf - libraries
 Summary(pl):	libwmf - biblioteki
-Conflicts:	%{name} < 2:0.2.8.4
 Group:		Libraries
+Conflicts:	libwmf < 2:0.2.8.4
 
 %description libs
 This package contains libwmf libraries.
