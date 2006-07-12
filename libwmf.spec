@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert wmf files
 Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.2.8.4
-Release:	4
+Release:	5
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
@@ -16,14 +16,15 @@ Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
+Patch3:		%{name}-png12.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
-%{?with_gtk:BuildRequires:	gtk+2-devel >= 1:2.1.2}
+%{?with_gtk:BuildRequires:	gtk+2-devel >= 1:2.10.0}
 BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel
+BuildRequires:	libpng-devel >= 1.2.12
 BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	xorg-lib-libX11-devel
 Requires(post):	ghostscript-fonts-std
@@ -101,13 +102,16 @@ Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
+rm configure.in
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
 %{__autoconf}
 %{__automake}
+LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{!?with_static_libs:--disable-static} \
 	--with-sysfontmap=%{_fontsdir}/ghostscript-fonts-std.font \
