@@ -1,4 +1,6 @@
 #
+# http://www.securityfocus.com/bid/18751/info
+#
 # Conditional build:
 %bcond_without	gtk		# without gtk-loader package (which requires gtk+2-devel)
 %bcond_without	static_libs	# don't build static version of library
