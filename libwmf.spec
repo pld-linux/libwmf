@@ -6,7 +6,7 @@
 %bcond_without	static_libs	# don't build static version of library
 #
 Summary:	libwmf - library to convert wmf files
-Summary(pl):	libwmf - biblioteka z funkcjami do konwersji plików wmf
+Summary(pl.UTF-8):   libwmf - biblioteka z funkcjami do konwersji plikÃ³w wmf
 Name:		libwmf
 Version:	0.2.8.4
 Release:	6
@@ -43,27 +43,27 @@ libwmf is a library for unix like machines that can convert wmf files
 into other formats, currently it supports fig, eps, a gd binding to
 convert to png, and an X one to draw direct to an X window or pixmap.
 
-%description -l pl
-libwmf jest bibliotek± dla systemów uniksowych, która konwertuje pliki
-wmf na inne formaty. Aktualnie obs³uguje formaty fig i eps, format png
-poprzez bibliotekê gd oraz - poprzez biblioteki X Window - rysowanie w
+%description -l pl.UTF-8
+libwmf jest bibliotekÄ… dla systemÃ³w uniksowych, ktÃ³ra konwertuje pliki
+wmf na inne formaty. Aktualnie obsÅ‚uguje formaty fig i eps, format png
+poprzez bibliotekÄ™ gd oraz - poprzez biblioteki X Window - rysowanie w
 okienku oraz format xpm.
 
 %package libs
 Summary:	libwmf - libraries
-Summary(pl):	libwmf - biblioteki
+Summary(pl.UTF-8):   libwmf - biblioteki
 Group:		Libraries
 Conflicts:	libwmf < 2:0.2.8.4
 
 %description libs
 This package contains libwmf libraries.
 
-%description libs -l pl
+%description libs -l pl.UTF-8
 Ten pakiet zawiera biblioteki libwmf.
 
 %package devel
 Summary:	libwmf - header files
-Summary(pl):	libwmf - pliki nag³ówkowe
+Summary(pl.UTF-8):   libwmf - pliki nagÅ‚Ã³wkowe
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 # libwmflite(.la) has no additional deps
@@ -72,32 +72,32 @@ Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 %description devel
 This package contains libwmf header files.
 
-%description devel -l pl
-Pakiet zawiera pliki nag³ówkowe do biblioteki libwmf.
+%description devel -l pl.UTF-8
+Pakiet zawiera pliki nagÅ‚Ã³wkowe do biblioteki libwmf.
 
 %package static
 Summary:	libwmf - static libraries
-Summary(pl):	libwmf - biblioteki statyczne
+Summary(pl.UTF-8):   libwmf - biblioteki statyczne
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 This package contains libwmf static libraries.
 
-%description static -l pl
-Pakiet zawiera statyczn± wersjê biblioteki libwmf.
+%description static -l pl.UTF-8
+Pakiet zawiera statycznÄ… wersjÄ™ biblioteki libwmf.
 
 %package gtk-loader
 Summary:	WMF loader for gdk_pixbuf 2.x library
-Summary(pl):	Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
+Summary(pl.UTF-8):   ModuÅ‚ wczytujÄ…cy WMF dla biblioteki gdk_pixbuf 2.x
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description gtk-loader
 WMF loader for gdk_pixbuf 2.x library.
 
-%description gtk-loader -l pl
-Modu³ wczytuj±cy WMF dla biblioteki gdk_pixbuf 2.x
+%description gtk-loader -l pl.UTF-8
+ModuÅ‚ wczytujÄ…cy WMF dla biblioteki gdk_pixbuf 2.x
 
 %prep
 %setup -q
