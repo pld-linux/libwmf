@@ -6,7 +6,7 @@
 %bcond_without	static_libs	# don't build static version of library
 #
 Summary:	libwmf - library to convert wmf files
-Summary(pl.UTF-8):   libwmf - biblioteka z funkcjami do konwersji plików wmf
+Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików wmf
 Name:		libwmf
 Version:	0.2.8.4
 Release:	6
@@ -51,7 +51,7 @@ okienku oraz format xpm.
 
 %package libs
 Summary:	libwmf - libraries
-Summary(pl.UTF-8):   libwmf - biblioteki
+Summary(pl.UTF-8):	libwmf - biblioteki
 Group:		Libraries
 Conflicts:	libwmf < 2:0.2.8.4
 
@@ -63,7 +63,7 @@ Ten pakiet zawiera biblioteki libwmf.
 
 %package devel
 Summary:	libwmf - header files
-Summary(pl.UTF-8):   libwmf - pliki nagłówkowe
+Summary(pl.UTF-8):	libwmf - pliki nagłówkowe
 Group:		Development/Libraries
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 # libwmflite(.la) has no additional deps
@@ -77,7 +77,7 @@ Pakiet zawiera pliki nagłówkowe do biblioteki libwmf.
 
 %package static
 Summary:	libwmf - static libraries
-Summary(pl.UTF-8):   libwmf - biblioteki statyczne
+Summary(pl.UTF-8):	libwmf - biblioteki statyczne
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
@@ -89,7 +89,7 @@ Pakiet zawiera statyczną wersję biblioteki libwmf.
 
 %package gtk-loader
 Summary:	WMF loader for gdk_pixbuf 2.x library
-Summary(pl.UTF-8):   Moduł wczytujący WMF dla biblioteki gdk_pixbuf 2.x
+Summary(pl.UTF-8):	Moduł wczytujący WMF dla biblioteki gdk_pixbuf 2.x
 Group:		X11/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
