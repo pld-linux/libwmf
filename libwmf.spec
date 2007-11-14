@@ -31,7 +31,7 @@ BuildRequires:	libtool >= 1:1.4.2-9
 BuildRequires:	xorg-lib-libX11-devel
 Requires(post):	ghostscript-fonts-std
 Requires(post):	sed
-Requires:	ghostscript-fonts-std
+Requires:	fonts-Type1-urw
 Requires:	sed
 Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
