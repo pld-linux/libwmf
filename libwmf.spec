@@ -5,8 +5,8 @@
 %bcond_without	gtk		# without gtk-loader package (which requires gtk+2-devel)
 %bcond_without	static_libs	# don't build static version of library
 #
-Summary:	libwmf - library to convert wmf files
-Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików wmf
+Summary:	libwmf - library to convert WMF files
+Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików WMF
 Name:		libwmf
 Version:	0.2.8.4
 Release:	6
@@ -39,13 +39,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		specflags_ia32	-fomit-frame-pointer
 
 %description
-libwmf is a library for Unix like machines that can convert wmf files
+libwmf is a library for Unix like machines that can convert WMF files
 into other formats, currently it supports fig, eps, a gd binding to
 convert to png, and an X one to draw direct to an X Window or pixmap.
 
 %description -l pl.UTF-8
 libwmf jest biblioteką dla systemów uniksowych, która konwertuje pliki
-wmf na inne formaty. Aktualnie obsługuje formaty fig i eps, format png
+WMF na inne formaty. Aktualnie obsługuje formaty fig i eps, format png
 poprzez bibliotekę gd oraz - poprzez biblioteki X Window - rysowanie w
 okienku oraz format xpm.
 
