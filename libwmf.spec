@@ -39,9 +39,9 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %define		specflags_ia32	-fomit-frame-pointer
 
 %description
-libwmf is a library for unix like machines that can convert wmf files
+libwmf is a library for Unix like machines that can convert wmf files
 into other formats, currently it supports fig, eps, a gd binding to
-convert to png, and an X one to draw direct to an X window or pixmap.
+convert to png, and an X one to draw direct to an X Window or pixmap.
 
 %description -l pl.UTF-8
 libwmf jest biblioteką dla systemów uniksowych, która konwertuje pliki
