@@ -9,7 +9,7 @@ Summary:	libwmf - library to convert WMF files
 Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików WMF
 Name:		libwmf
 Version:	0.2.8.4
-Release:	6
+Release:	7
 Epoch:		2
 License:	GPL
 Group:		Applications/Text
