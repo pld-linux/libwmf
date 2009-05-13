@@ -20,6 +20,9 @@ Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
 Patch3:		%{name}-png12.patch
 URL:		http://wvware.sourceforge.net/
+# Fix in RH:
+# http://securitytracker.com/alerts/2009/Apr/1022156.html
+BuildRequires:	security(CVE-2009-1364)
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	expat-devel
