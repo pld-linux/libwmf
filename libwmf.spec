@@ -1,6 +1,4 @@
 #
-# http://www.securityfocus.com/bid/18751/info
-#
 # Conditional build:
 %bcond_without	gtk		# without gtk-loader package (which requires gtk+2-devel)
 %bcond_without	static_libs	# don't build static version of library
@@ -19,10 +17,8 @@ Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
 Patch3:		%{name}-png12.patch
+Patch4:		%{name}-0.2.8.4-useafterfree.patch
 URL:		http://wvware.sourceforge.net/
-# Fix in RH:
-# http://securitytracker.com/alerts/2009/Apr/1022156.html
-BuildRequires:	security(CVE-2009-1364)
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	expat-devel
@@ -108,6 +104,7 @@ Moduł wczytujący WMF dla biblioteki gdk_pixbuf 2.x
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 rm configure.in
