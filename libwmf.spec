@@ -27,12 +27,13 @@ BuildRequires:	freetype-devel >= 2.0
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 1.2.12
 BuildRequires:	libtool >= 1:1.4.2-9
+BuildRequires:	pkgconfig
 BuildRequires:	xorg-lib-libX11-devel
 Requires(post):	ghostscript-fonts-std
 Requires(post):	sed
+Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 Requires:	fonts-Type1-urw
 Requires:	sed
-Requires:	%{name}-libs = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		specflags_ia32	-fomit-frame-pointer
