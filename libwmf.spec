@@ -9,9 +9,9 @@ Name:		libwmf
 Version:	0.2.8.4
 Release:	12
 Epoch:		2
-License:	GPL
+License:	LGPL v2+
 Group:		Applications/Text
-Source0:	http://dl.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+Source0:	http://downloads.sourceforge.net/wvware/%{name}-%{version}.tar.gz
 # Source0-md5:	d1177739bf1ceb07f57421f0cee191e0
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
@@ -159,24 +159,30 @@ rm -rf $RPM_BUILD_ROOT
 
 %files libs
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/*.so.*.*
+%attr(755,root,root) %{_libdir}/libwmf-0.2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libwmf-0.2.so.7
+%attr(755,root,root) %{_libdir}/libwmflite-0.2.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libwmflite-0.2.so.7
 
 %files devel
 %defattr(644,root,root,755)
 %doc html-doc examples
 %attr(755,root,root) %{_bindir}/libwmf-config
-%attr(755,root,root) %{_libdir}/*.so
-%{_libdir}/*.la
-%{_includedir}/*
+%attr(755,root,root) %{_libdir}/libwmf.so
+%attr(755,root,root) %{_libdir}/libwmflite.so
+%{_libdir}/libwmf.la
+%{_libdir}/libwmflite.la
+%{_includedir}/libwmf
 
 %if %{with static_libs}
 %files static
 %defattr(644,root,root,755)
-%{_libdir}/*.a
+%{_libdir}/libwmf.a
+%{_libdir}/libwmflite.a
 %endif
 
 %if %{with gtk}
 %files gtk-loader
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/gtk-2*/*/loaders/*.so
+%attr(755,root,root) %{_libdir}/gtk-2.0/*/loaders/io-wmf.so
 %endif
