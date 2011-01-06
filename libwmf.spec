@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert WMF files
 Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików WMF
 Name:		libwmf
 Version:	0.2.8.4
-Release:	13
+Release:	14
 Epoch:		2
 License:	LGPL v2+
 Group:		Applications/Text
@@ -18,6 +18,13 @@ Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
 Patch3:		%{name}-png12.patch
 Patch4:		%{name}-0.2.8.4-useafterfree.patch
+Patch5:		%{name}-0.2.8.4-CVE-2007-0455.patch
+Patch6:		%{name}-0.2.8.4-CVE-2007-3472.patch
+Patch7:		%{name}-0.2.8.4-CVE-2007-3473.patch
+Patch8:		%{name}-0.2.8.4-CVE-2007-3477.patch
+Patch9:		%{name}-0.2.8.4-CVE-2007-2756.patch
+Patch10:	%{name}-0.2.8.4-CAN-2004-0941.patch
+Patch11:	%{name}-0.2.8.4-CVE-2009-3546.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
@@ -106,6 +113,13 @@ Moduł wczytujący WMF dla biblioteki gdk_pixbuf 2.x
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
 
 %build
 rm configure.in
