@@ -7,7 +7,7 @@ Summary:	libwmf - library to convert WMF files
 Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików WMF
 Name:		libwmf
 Version:	0.2.8.4
-Release:	15
+Release:	16
 Epoch:		2
 License:	LGPL v2+
 Group:		Applications/Text
@@ -25,6 +25,7 @@ Patch8:		%{name}-0.2.8.4-CVE-2007-3477.patch
 Patch9:		%{name}-0.2.8.4-CVE-2007-2756.patch
 Patch10:	%{name}-0.2.8.4-CAN-2004-0941.patch
 Patch11:	%{name}-0.2.8.4-CVE-2009-3546.patch
+Patch12:	%{name}-pixbufloaderdir.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
@@ -120,15 +121,15 @@ Moduł wczytujący WMF dla biblioteki gdk_pixbuf 2.x
 %patch9 -p1
 %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 %build
-rm configure.in
+%{__rm} configure.in
 %{__libtoolize}
 %{__aclocal}
 %{__autoheader}
 %{__autoconf}
 %{__automake}
-LDFLAGS="%{rpmldflags} -Wl,--as-needed"
 %configure \
 	%{!?with_static_libs:--disable-static} \
 	--with-sysfontmap=%{_fontsdir}/ghostscript-fonts-std.font \
@@ -143,11 +144,11 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-rm -rf html-doc
+%{__rm} -rf html-doc
 mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
 
 # no static modules and *.la for GTK+ loaders - shut up check-files
-rm -f $RPM_BUILD_ROOT%{_libdir}/gtk-2*/*/loaders/*.{a,la}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/gdk-pixbuf-2.0/*/loaders/*.{a,la}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -198,5 +199,5 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with gtk}
 %files gtk-loader
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/gtk-2.0/*/loaders/io-wmf.so
+%{_libdir}/gdk-pixbuf-2.0/*/loaders/io-wmf.so
 %endif
