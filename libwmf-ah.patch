@@ -1,0 +1,18 @@
+--- libwmf-0.2.12/configure.ac.orig	2019-02-01 18:51:32.000000000 +0100
++++ libwmf-0.2.12/configure.ac	2019-04-24 22:01:22.848914667 +0200
+@@ -143,6 +143,15 @@
+ #end libtool stuff
+ 
+ dnl Checks for header files.
++AH_TEMPLATE([HAVE_EXPAT], [Define if you have expat.])
++AH_TEMPLATE([HAVE_GD], [Define if you have libgd])
++AH_TEMPLATE([HAVE_LIBJPEG], [Define if you have libjpeg.])
++AH_TEMPLATE([HAVE_LIBPLOT], [Define if you have GNU plotutils (libplot) >= 2.4.0.])
++AH_TEMPLATE([HAVE_LIBPNG], [Define if you have libpng.])
++AH_TEMPLATE([HAVE_LIBXML2], [Define if you have libxml2.])
++AH_TEMPLATE([WITHOUT_LAYERS], [defining this will disable egs, fig, svg & foreign layers])
++AH_TEMPLATE([snprintf], [Define to _snprintf if necessary])
++AH_TEMPLATE([vsnprintf], [Define to _vsnprintf if necessary])
+ AC_HEADER_STDC
+ AC_CHECK_HEADERS(time.h)
+ AC_CHECK_HEADER(unistd.h,[

@@ -6,32 +6,28 @@
 Summary:	libwmf - library to convert WMF files
 Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików WMF
 Name:		libwmf
-Version:	0.2.8.4
-Release:	24
+Version:	0.2.12
+Release:	1
 Epoch:		2
 License:	LGPL v2+
 Group:		Applications/Text
-Source0:	http://downloads.sourceforge.net/wvware/%{name}-%{version}.tar.gz
-# Source0-md5:	d1177739bf1ceb07f57421f0cee191e0
+# original project seems dead
+#Source0:	http://downloads.sourceforge.net/wvware/%{name}-%{version}.tar.gz
+# RedHat supported fork
+#Source0Download: https://github.com/caolanm/libwmf/releases
+Source0:	https://github.com/caolanm/libwmf/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	fa5c642447ef6c37737c6ac767d4ba3a
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
 Patch3:		%{name}-png12.patch
-Patch4:		%{name}-0.2.8.4-useafterfree.patch
-Patch5:		%{name}-0.2.8.4-CVE-2007-0455.patch
-Patch6:		%{name}-0.2.8.4-CVE-2007-3472.patch
-Patch7:		%{name}-0.2.8.4-CVE-2007-3473.patch
-Patch8:		%{name}-0.2.8.4-CVE-2007-3477.patch
-Patch9:		%{name}-0.2.8.4-CVE-2007-2756.patch
-Patch10:	%{name}-0.2.8.4-CAN-2004-0941.patch
-Patch11:	%{name}-0.2.8.4-CVE-2009-3546.patch
-Patch12:	%{name}-pixbufloaderdir.patch
+Patch4:		%{name}-ah.patch
 URL:		http://wvware.sourceforge.net/
 BuildRequires:	autoconf >= 2.59-9
 BuildRequires:	automake
 BuildRequires:	expat-devel
 BuildRequires:	freetype-devel >= 2.0
-%{?with_gtk:BuildRequires:	gtk+2-devel >= 1:2.10.0}
+%{?with_gtk:BuildRequires:	gdk-pixbuf2-devel >= 2.1.2}
 BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel >= 2:1.4.0
 BuildRequires:	libtool >= 1:1.4.2-9
@@ -114,21 +110,12 @@ Moduł wczytujący WMF dla biblioteki gdk_pixbuf 2.x
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
 
 %build
-%{__rm} configure.in
 %{__libtoolize}
 %{__aclocal}
-%{__autoheader}
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	%{!?with_static_libs:--disable-static} \
@@ -143,9 +130,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} -j1 install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-%{__rm} -rf html-doc
-mv -f $RPM_BUILD_ROOT%{_datadir}/doc ./html-doc
 
 # no static modules and *.la for GTK+ loaders - shut up check-files
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/gdk-pixbuf-2.0/*/loaders/*.{a,la}
@@ -181,13 +165,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %files devel
 %defattr(644,root,root,755)
-%doc html-doc examples
+%doc doc/caolan doc/html/{*.html,*.css,*.gif,*.png} examples
 %attr(755,root,root) %{_bindir}/libwmf-config
 %attr(755,root,root) %{_libdir}/libwmf.so
 %attr(755,root,root) %{_libdir}/libwmflite.so
 %{_libdir}/libwmf.la
 %{_libdir}/libwmflite.la
 %{_includedir}/libwmf
+%{_pkgconfigdir}/libwmf.pc
 
 %if %{with static_libs}
 %files static
@@ -199,5 +184,5 @@ rm -rf $RPM_BUILD_ROOT
 %if %{with gtk}
 %files gtk-loader
 %defattr(644,root,root,755)
-%{_libdir}/gdk-pixbuf-2.0/*/loaders/io-wmf.so
+%attr(755,root,root) %{_libdir}/gdk-pixbuf-2.0/2.*/loaders/io-wmf.so
 %endif
