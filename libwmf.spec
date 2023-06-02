@@ -1,12 +1,15 @@
+# TODO:
+# - update fonts-Type1-urw.spec, revise system fonts usage
+# - given sysfontmap file doesn't exist since 2007
 #
 # Conditional build:
-%bcond_without	gtk		# without gtk-loader package (which requires gtk+2-devel)
-%bcond_without	static_libs	# don't build static version of library
+%bcond_without	gtk		# gtk-loader package (requires gdk-pixbuf2)
+%bcond_without	static_libs	# static library
 #
 Summary:	libwmf - library to convert WMF files
 Summary(pl.UTF-8):	libwmf - biblioteka z funkcjami do konwersji plików WMF
 Name:		libwmf
-Version:	0.2.12
+Version:	0.2.13
 Release:	1
 Epoch:		2
 License:	LGPL v2+
@@ -16,7 +19,7 @@ Group:		Applications/Text
 # RedHat supported fork
 #Source0Download: https://github.com/caolanm/libwmf/releases
 Source0:	https://github.com/caolanm/libwmf/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	fa5c642447ef6c37737c6ac767d4ba3a
+# Source0-md5:	1c95363fd3c2f7b92bb4f4026aeab8d6
 Patch0:		%{name}-fontmap-pld.patch
 Patch1:		%{name}-includes.patch
 Patch2:		%{name}-segv.patch
