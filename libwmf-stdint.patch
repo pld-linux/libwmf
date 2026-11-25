@@ -1,0 +1,11 @@
+# bmp.h uses uint64_t but nothing includes <stdint.h>
+--- libwmf-0.2.17/src/ipa/ipa.c.orig
++++ libwmf-0.2.17/src/ipa/ipa.c
+@@ -22,6 +22,7 @@
+ #endif /* HAVE_CONFIG_H */
+ 
+ #include <limits.h>
++#include <stdint.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <math.h>
